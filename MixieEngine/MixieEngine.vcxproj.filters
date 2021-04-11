@@ -36,12 +36,17 @@
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
-      <Filter>Source Files\Engine</Filter>
+      <Filter>Source Files\glad and Src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Text.txt">
       <Filter>Source Files\glad and Src</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader.glsl">
+      <Filter>Source Files\Engine</Filter>
+    </None>
   </ItemGroup>
 </Project>
