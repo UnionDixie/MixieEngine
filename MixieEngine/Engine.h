@@ -31,13 +31,13 @@ private:
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
 
-	int shaderProgram;
-	unsigned int VBO, VAO, EBO;
+	std::array<int, 2> shaderProgram;
+	//unsigned int VBO, VAO, EBO;
 
-	const int n = 1;
-	std::array<ui, 1> trianglesVBO;
-	std::array<ui, 1> trinanglesVAO;
-	std::array<ui, 1> trinangleseEBO;
+	const int n = 2;
+	std::array<ui, 2> trianglesVBO;
+	std::array<ui, 2> trinanglesVAO;
+	//std::array<ui, 2> trinanglesEBO;
 
 };
 
