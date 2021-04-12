@@ -21,9 +21,10 @@ public:
 	typedef unsigned int ui;
 	Engine();
 	void run();
+	int run2();
 	~Engine();
 private:
-	GLFWwindow* window = nullptr;
+	GLFWwindow* windowMain = nullptr;
 	void processInput(GLFWwindow*);
 	static void framebuffer_size_callback(GLFWwindow*,int,int);
 	void draw();

@@ -2,180 +2,180 @@
 
 Engine::Engine()
 {
-    printf("Compiled against GLFW %i.%i.%i\n",
-        GLFW_VERSION_MAJOR,
-        GLFW_VERSION_MINOR,
-        GLFW_VERSION_REVISION);
-    //int major, minor, revision;
-    //glfwGetVersion(&major, &minor, &revision);
-    //printf("Running against GLFW %i.%i.%i\n", major, minor, revision);
+   // printf("Compiled against GLFW %i.%i.%i\n",
+   //     GLFW_VERSION_MAJOR,
+   //     GLFW_VERSION_MINOR,
+   //     GLFW_VERSION_REVISION);
+   // //int major, minor, revision;
+   // //glfwGetVersion(&major, &minor, &revision);
+   // //printf("Running against GLFW %i.%i.%i\n", major, minor, revision);
 
-    const char* vertexShaderSource = "#version 330 core\n"
-        "layout (location = 0) in vec3 aPos;\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-        "}\0";
-    const char* fragmentShaderSource = "#version 330 core\n"
-        "out vec4 FragColor;\n"
-        "void main()\n"
-        "{\n"
-        "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-        "}\n\0";
-
-
-   // glfw: инициализация и конфигурирование
-   glfwInit();
-   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    // glfw: создание окна
-   window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL", NULL, NULL);
-   if (window == NULL)
-   {
-       std::cout << "Failed to create GLFW window" << std::endl;
-       glfwTerminate();
-       //
-   }
-   glfwMakeContextCurrent(window);
-   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-   // glad: загрузка всех указателей на OpenGL-функции
-   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-   {
-       std::cout << "Failed to initialize GLAD" << std::endl;
-   }
-
-   // Компилирование нашей шейдерной программы
-
-   // Вершинный шейдер
-   int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-   glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-   glCompileShader(vertexShader);
-
-   // Проверка на наличие ошибок компилирования вершинного шейдера
-   int success;
-   char infoLog[512];
-   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-   if (!success)
-   {
-       glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-       std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-   }
-
-   // Фрагментный шейдер
-   int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-   glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-   glCompileShader(fragmentShader);
-
-   // Проверка на наличие ошибок компилирования фрагментного шейдера
-   glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-   if (!success)
-   {
-       glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-       std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-   }
+   // const char* vertexShaderSource = "#version 330 core\n"
+   //     "layout (location = 0) in vec3 aPos;\n"
+   //     "void main()\n"
+   //     "{\n"
+   //     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+   //     "}\0";
+   // const char* fragmentShaderSource = "#version 330 core\n"
+   //     "out vec4 FragColor;\n"
+   //     "void main()\n"
+   //     "{\n"
+   //     "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+   //     "}\n\0";
 
 
-   // Связывание шейдеров
-   //int shaderProgram = glCreateProgram();
-   shaderProgram = glCreateProgram();
-   glAttachShader(shaderProgram, vertexShader);
-   glAttachShader(shaderProgram, fragmentShader);
-   glLinkProgram(shaderProgram);
+   //// glfw: инициализация и конфигурирование
+   //glfwInit();
+   //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+   //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+   //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-   // Проверка на наличие ошибок компилирования связывания шейдеров
-   glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-   if (!success) {
-       glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-   }
-   //
-   glDeleteShader(vertexShader);
-   glDeleteShader(fragmentShader);
+   // // glfw: создание окна
+   //window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL", NULL, NULL);
+   //if (window == NULL)
+   //{
+   //    std::cout << "Failed to create GLFW window" << std::endl;
+   //    glfwTerminate();
+   //    //
+   //}
+   //glfwMakeContextCurrent(window);
+   //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+   //// glad: загрузка всех указателей на OpenGL-функции
+   //if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+   //{
+   //    std::cout << "Failed to initialize GLAD" << std::endl;
+   //}
+
+   //// Компилирование нашей шейдерной программы
+
+   //// Вершинный шейдер
+   //int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+   //glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+   //glCompileShader(vertexShader);
+
+   //// Проверка на наличие ошибок компилирования вершинного шейдера
+   //int success;
+   //char infoLog[512];
+   //glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+   //if (!success)
+   //{
+   //    glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+   //    std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+   //}
+
+   //// Фрагментный шейдер
+   //int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+   //glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+   //glCompileShader(fragmentShader);
+
+   //// Проверка на наличие ошибок компилирования фрагментного шейдера
+   //glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+   //if (!success)
+   //{
+   //    glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+   //    std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+   //}
+
+
+   //// Связывание шейдеров
+   ////int shaderProgram = glCreateProgram();
+   //shaderProgram = glCreateProgram();
+   //glAttachShader(shaderProgram, vertexShader);
+   //glAttachShader(shaderProgram, fragmentShader);
+   //glLinkProgram(shaderProgram);
+
+   //// Проверка на наличие ошибок компилирования связывания шейдеров
+   //glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+   //if (!success) {
+   //    glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+   //     std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+   //}
+   ////
+   //glDeleteShader(vertexShader);
+   //glDeleteShader(fragmentShader);
+
+
+
+
+
+   ////// Указывание вершин (и буферов) и настройка вершинных атрибутов
+   ////float vertices[] = {
+   ////      0.5f,  0.5f, 0.0f,  // верхняя правая
+   ////      0.5f, -0.5f, 0.0f,  // нижняя правая
+   ////     -0.5f, -0.5f, 0.0f,  // нижняя левая
+   ////     -0.5f,  0.5f, 0.0f   // верхняя левая
+   ////};
+   ////unsigned int indices[] = {  // помните, что мы начинаем с 0!
+   ////    0, 1, 3,  // первый треугольник
+   ////    1, 2, 3   // второй треугольник
+   ////};
+
+   //////unsigned int VBO, VAO;
+   ////glGenVertexArrays(1, &VAO);
+   ////glGenBuffers(1, &VBO);
+   ////glGenBuffers(1, &EBO);
+
+   ////// Сначала связываем объект вершинного массива, 
+   //////затем связываем и устанавливаем вершинный буфер(ы), 
+   //////и затем конфигурируем вершинный атрибут(ы)
+   ////glBindVertexArray(VAO);
+
+   ////glBindBuffer(GL_ARRAY_BUFFER, VBO);
+   ////glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+   ////glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+   ////glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+   ////glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+   ////glEnableVertexAttribArray(0);
+
+   ////// Обратите внимание, что данное действие разрешено, 
+   //////вызов glVertexAttribPointer() зарегистрировал VBO 
+   //////как привязанный вершинный буферный объект для вершинного атрибута,
+   //////так что после этого мы можем спокойно выполнить отвязку
+   ////glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+   ////// помните: не отвязывайте EBO, пока VАО активен, поскольку 
+   ////// связанного объект буфера элемента хранится в VАО; сохраняйте привязку EBO.
+   //// //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+   ////// Вы можете отменить привязку VАО после этого, чтобы другие
+   ////// вызовы VАО случайно не изменили этот VAO (но подобное довольно редко случается).
+   ////// Модификация других VAO требует вызов glBindVertexArray(),
+   //////поэтому мы обычно не снимаем привязку VAO (или VBO), когда это не требуется напрямую
+   ////glBindVertexArray(0);
 
 
 
 
 
    //// Указывание вершин (и буферов) и настройка вершинных атрибутов
-   //float vertices[] = {
+   //float twoTri[] = {
    //      0.5f,  0.5f, 0.0f,  // верхняя правая
    //      0.5f, -0.5f, 0.0f,  // нижняя правая
    //     -0.5f, -0.5f, 0.0f,  // нижняя левая
-   //     -0.5f,  0.5f, 0.0f   // верхняя левая
+   //      0.8f,  0.5f, 0.0f   // верхняя левая
    //};
-   //unsigned int indices[] = {  // помните, что мы начинаем с 0!
-   //    0, 1, 3,  // первый треугольник
-   //    1, 2, 3   // второй треугольник
+   //unsigned int indices2[] = {  // помните, что мы начинаем с 0!
+   //    0, 1, 2,  // первый треугольник
+   //    0, 3, 1   // второй треугольник
    //};
-
-   ////unsigned int VBO, VAO;
-   //glGenVertexArrays(1, &VAO);
-   //glGenBuffers(1, &VBO);
-   //glGenBuffers(1, &EBO);
-
-   //// Сначала связываем объект вершинного массива, 
-   ////затем связываем и устанавливаем вершинный буфер(ы), 
-   ////и затем конфигурируем вершинный атрибут(ы)
-   //glBindVertexArray(VAO);
-
-   //glBindBuffer(GL_ARRAY_BUFFER, VBO);
-   //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-   //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-   //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-   //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-   //glEnableVertexAttribArray(0);
-
-   //// Обратите внимание, что данное действие разрешено, 
-   ////вызов glVertexAttribPointer() зарегистрировал VBO 
-   ////как привязанный вершинный буферный объект для вершинного атрибута,
-   ////так что после этого мы можем спокойно выполнить отвязку
-   //glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-   //// помните: не отвязывайте EBO, пока VАО активен, поскольку 
-   //// связанного объект буфера элемента хранится в VАО; сохраняйте привязку EBO.
-   // //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-   //// Вы можете отменить привязку VАО после этого, чтобы другие
-   //// вызовы VАО случайно не изменили этот VAO (но подобное довольно редко случается).
-   //// Модификация других VAO требует вызов glBindVertexArray(),
-   ////поэтому мы обычно не снимаем привязку VAO (или VBO), когда это не требуется напрямую
-   //glBindVertexArray(0);
-
-
-
-
-
-   // Указывание вершин (и буферов) и настройка вершинных атрибутов
-   float twoTri[] = {
-         0.5f,  0.5f, 0.0f,  // верхняя правая
-         0.5f, -0.5f, 0.0f,  // нижняя правая
-        -0.5f, -0.5f, 0.0f,  // нижняя левая
-         0.8f,  0.5f, 0.0f   // верхняя левая
-   };
-   unsigned int indices2[] = {  // помните, что мы начинаем с 0!
-       0, 1, 2,  // первый треугольник
-       0, 3, 1   // второй треугольник
-   };
-   for (size_t i = 0; i < n; i++)
-   {
-       glGenVertexArrays(1, &trianglesVBO[i]);
-       glGenBuffers(1, &trinanglesVAO[i]);
-       glGenBuffers(1, &trinangleseEBO[i]);
-       glBindVertexArray(trinanglesVAO[i]);
-       glBindBuffer(GL_ARRAY_BUFFER, trianglesVBO[i]);
-       glBufferData(GL_ARRAY_BUFFER, sizeof(twoTri), twoTri, GL_STATIC_DRAW);
-       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, trinangleseEBO[i]);
-       glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices2), indices2, GL_STATIC_DRAW);
-       glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-       glEnableVertexAttribArray(0);
-       glBindBuffer(GL_ARRAY_BUFFER, 0);
-       glBindVertexArray(0);
-   }
+   //for (size_t i = 0; i < n; i++)
+   //{
+   //    glGenVertexArrays(1, &trianglesVBO[i]);
+   //    glGenBuffers(1, &trinanglesVAO[i]);
+   //    glGenBuffers(1, &trinangleseEBO[i]);
+   //    glBindVertexArray(trinanglesVAO[i]);
+   //    glBindBuffer(GL_ARRAY_BUFFER, trianglesVBO[i]);
+   //    glBufferData(GL_ARRAY_BUFFER, sizeof(twoTri), twoTri, GL_STATIC_DRAW);
+   //    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, trinangleseEBO[i]);
+   //    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices2), indices2, GL_STATIC_DRAW);
+   //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+   //    glEnableVertexAttribArray(0);
+   //    glBindBuffer(GL_ARRAY_BUFFER, 0);
+   //    glBindVertexArray(0);
+   //}
 
    // Раскомментируйте следующую строку для отрисовки полигонов в режиме каркаса
    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -185,9 +185,9 @@ Engine::Engine()
 void Engine::run()
 {
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(windowMain))
     {
-        processInput(window);
+        processInput(windowMain);
 
         // Рендеринг
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -213,7 +213,7 @@ void Engine::run()
         // glfw: обмен содержимым front- и back- буферов. 
         //Отслеживание событий ввода\вывода 
         //(была ли нажата/отпущена кнопка, перемещен курсор мыши и т.п.)
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(windowMain);
         glfwPollEvents();
     }
 
@@ -223,6 +223,87 @@ void Engine::run()
     glDeleteBuffers(1, &EBO);
 
     glfwTerminate();
+}
+
+int x = 640, y = 480;
+
+void callbackResize(GLFWwindow*, int xn, int yn) {
+    x = xn;
+    y = yn;
+    glViewport(0, 0, x, y);
+}
+
+void callbackKey(GLFWwindow* win,int key,int scancode,int act,int mode) {
+   
+    if (key == GLFW_KEY_ESCAPE && scancode == GLFW_PRESS) {
+        glfwSetWindowShouldClose(win, true);
+   }
+}
+
+int Engine::run2()
+{
+    printf("Compiled against GLFW %i.%i.%i\n",
+        GLFW_VERSION_MAJOR,
+        GLFW_VERSION_MINOR,
+        GLFW_VERSION_REVISION);
+
+    GLFWwindow* window;
+    /* Initialize the library */
+    if (!glfwInit())
+        return -1;
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    /* Create a windowed mode window and its OpenGL context */
+    window = glfwCreateWindow(x, y, "Hello World", NULL, NULL);
+    if (!window)
+    {
+        glfwTerminate();
+        return -1;
+    }
+
+    glfwSetWindowSizeCallback(window, callbackResize); 
+    glfwSetKeyCallback(window, callbackKey);
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
+
+    if (!gladLoadGL())
+    {
+        return -2;
+    }
+
+    glfwSetWindowPos(window, 600, 300);
+
+
+    std::cout << glGetString(GL_VERSION) << "\n";
+    std::cout << glGetString(GL_VENDOR) << "\n";
+    
+    auto log = glGetString(GL_RENDER);
+
+    if (log != nullptr) {
+        std::cout << log << "\n";
+    }
+    else {
+        std::cout << "Erro log\n";
+    }
+
+    glClearColor(0, 1, 0, 1);
+
+    /* Loop until the user closes the window */
+    while (!glfwWindowShouldClose(window))
+    {
+        /* Render here */
+        glClear(GL_COLOR_BUFFER_BIT);
+       
+        /* Swap front and back buffers */
+        glfwSwapBuffers(window);
+
+        /* Poll for and process events */
+        glfwPollEvents();
+    }
+
+    glfwTerminate();
+    return 0;
 }
 
 void Engine::processInput(GLFWwindow* window)
