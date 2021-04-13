@@ -1,8 +1,8 @@
-#include "../Engine.h"
+#include "engine/Engine.h"
 
 int main() {
     Engine engine;
-    int s = engine.run2();
+    engine.run();
 
-    return s;
+    return 0;
 }

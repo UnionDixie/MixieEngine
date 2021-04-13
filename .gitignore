@@ -44,3 +44,11 @@ MixieEngine/x64/Release/vc142.pdb
 MixieEngine/x64/Debug/MixieEngine.exp
 MixieEngine/x64/Debug/MixieEngine.tlog/MixieEngine.write.1u.tlog
 MixieEngine/x64/Debug/MixieEngine.lib
+*.ipch
+MixieEngine/x64/Debug/MixieEngine.tlog/link.13296-cvtres.read.1.tlog
+MixieEngine/x64/Debug/MixieEngine.tlog/link.13296-cvtres.write.1.tlog
+MixieEngine/x64/Debug/MixieEngine.tlog/link.13296-rc.read.1.tlog
+MixieEngine/x64/Debug/MixieEngine.tlog/link.13296-rc.write.1.tlog
+MixieEngine/x64/Debug/MixieEngine.tlog/link.13296.read.1.tlog
+MixieEngine/x64/Debug/MixieEngine.tlog/link.13296.write.1.tlog
+MixieEngine/x64/Debug/MixieEngine.tlog/unsuccessfulbuild
