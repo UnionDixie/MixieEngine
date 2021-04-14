@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-Engine::Engine()
+Engine::Engine() : shaderProg("","")
 {
     printf("Compiled against GLFW %i.%i.%i\n",
         GLFW_VERSION_MAJOR,
@@ -34,7 +34,13 @@ Engine::Engine()
 
     glfwSetWindowPos(window, 600, 300);//~mid screen
 
+
+
     //log
+    int nrAttributes;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+
     std::cout << glGetString(GL_VERSION) << "\n";
     std::cout << glGetString(GL_VENDOR) << "\n";
     if (auto log = glGetString(GL_RENDER); log != nullptr) {
@@ -44,23 +50,15 @@ Engine::Engine()
         //throw exception
     }
 
+
+
     //create and bind shader
-
-    GLuint vertxShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertxShader, 1, &vertexShader, nullptr);
-    glCompileShader(vertxShader);
-
-    GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragShader, 1, &fragmentShader, nullptr);
-    glCompileShader(fragShader);
-        
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertxShader);
-    glAttachShader(shaderProgram, fragShader);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertxShader);
-    glDeleteShader(fragShader);
+    shaderProg = std::move(Render::Shader(std::string(vertexShader), std::string(fragmentShader)));
+    if (!shaderProg.isCompiled()) {
+        std::cerr << "Can't create shader\n";
+        //return -1;
+    }
+    //
 
     GLuint pointsVbo = 0;
     glGenBuffers(1, &pointsVbo);
@@ -79,6 +77,7 @@ Engine::Engine()
     glEnableVertexAttribArray(0);//for location = 0
     glBindBuffer(GL_ARRAY_BUFFER, pointsVbo);
     glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, nullptr);
+    
 
     glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
@@ -95,7 +94,7 @@ void Engine::run()
         processInput(window); //or uses callback :)
         //render
         glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(shaderProgram);
+        shaderProg.use();
         glBindVertexArray(vao);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 

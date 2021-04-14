@@ -1,4 +1,5 @@
 #pragma once
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -10,6 +11,8 @@
 //#include <cassert>
 //#include <vector>
 //#include <array>
+
+#include "../Engine/Render/Shader/Shader.h"
 
 class Engine
 {
@@ -24,9 +27,9 @@ private:
 	const ui SCR_HEIGHT = 480;
 	
 	GLfloat points[9] = {
-		0.5f,0.5f,0.0f,
+		0.0f,0.5f,0.0f,
 		-0.5f,-0.5f,0.0f,
-		0.5f,-0.5f,0.0f
+		0.5f,-0.5f,0.0f,
 	};
 	GLfloat colors[9] = {
 		1.0f,0.f,0.f,
@@ -49,7 +52,7 @@ private:
 		"void main() {"
 		"fragColor = vec4(color,1.0);"
 		"}";
-	GLuint shaderProgram;
+	Render::Shader shaderProg;//only args or moveConstructor
 	GLuint vao;
 private:
 	void processInput(GLFWwindow*);

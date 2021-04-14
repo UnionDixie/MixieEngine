@@ -16,7 +16,13 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{9e92cd85-f34f-4c28-b414-ed1544e8c6a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\glad">
+    <Filter Include="Source Files\Engine\Render">
+      <UniqueIdentifier>{2ff5eae2-32dd-4cb1-8cf1-c480aea6e623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Render\Shader">
+      <UniqueIdentifier>{1864d8aa-a6cf-4063-9e60-91e8f0b70156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\glad">
       <UniqueIdentifier>{9e0f71b6-df46-49c7-a22b-eab91b71343a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -25,15 +31,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Libs\GLAD\src\glad.c">
-      <Filter>Source Files\glad</Filter>
+      <Filter>Source Files\Engine\glad</Filter>
     </ClCompile>
     <ClCompile Include="src\engine\Engine.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\Shader\Shader.cpp">
+      <Filter>Source Files\Engine\Render\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Engine.h">
       <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Shader\Shader.h">
+      <Filter>Source Files\Engine\Render\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
