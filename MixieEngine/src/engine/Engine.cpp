@@ -44,19 +44,61 @@ Engine::Engine()
         //throw exception
     }
 
-    
+    //create and bind shader
+
+    GLuint vertxShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertxShader, 1, &vertexShader, nullptr);
+    glCompileShader(vertxShader);
+
+    GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragShader, 1, &fragmentShader, nullptr);
+    glCompileShader(fragShader);
+        
+    shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertxShader);
+    glAttachShader(shaderProgram, fragShader);
+    glLinkProgram(shaderProgram);
+
+    glDeleteShader(vertxShader);
+    glDeleteShader(fragShader);
+
+    GLuint pointsVbo = 0;
+    glGenBuffers(1, &pointsVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, pointsVbo);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(points), points, GL_STATIC_DRAW);
+
+    GLuint colorsVbo = 0;
+    glGenBuffers(1, &colorsVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+
+    vao = 0;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    glEnableVertexAttribArray(0);//for location = 0
+    glBindBuffer(GL_ARRAY_BUFFER, pointsVbo);
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, nullptr);
+
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
+    glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, nullptr);
 
 }
 
 void Engine::run()
 {
-    glClearColor(0, 1, 0, 1);//RGBA
+    glClearColor(1, 1, 0, 1);//RGBA
     while (!glfwWindowShouldClose(window))
     {
         //userInput
         processInput(window); //or uses callback :)
         //render
         glClear(GL_COLOR_BUFFER_BIT);
+        glUseProgram(shaderProgram);
+        glBindVertexArray(vao);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
         //swap
         glfwSwapBuffers(window);
         //readEvents
