@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Engine\glad">
       <UniqueIdentifier>{9e0f71b6-df46-49c7-a22b-eab91b71343a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Resources">
+      <UniqueIdentifier>{dce426f0-d212-47b5-aaee-28348d12a66e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Resources\ResourcesManager">
+      <UniqueIdentifier>{ce551512-7c6e-478d-8232-23de21caab70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -39,6 +45,9 @@
     <ClCompile Include="src\Engine\Render\Shader\Shader.cpp">
       <Filter>Source Files\Engine\Render\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Resources\ResourcesManager.cpp">
+      <Filter>Source Files\Engine\Resources\ResourcesManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Engine.h">
@@ -47,12 +56,15 @@
     <ClInclude Include="src\Engine\Render\Shader\Shader.h">
       <Filter>Source Files\Engine\Render\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Resources\ResourcesManager.h">
+      <Filter>Source Files\Engine\Resources\ResourcesManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Engine\Render\Shader\fragment.fs">
+    <None Include="data\Shader\fragment.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="src\Engine\Render\Shader\vertex.vs">
+    <None Include="data\Shader\vertex.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

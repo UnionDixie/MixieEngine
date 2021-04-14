@@ -150,15 +150,17 @@
     <ClCompile Include="Libs\GLAD\src\glad.c" />
     <ClCompile Include="src\engine\Engine.cpp" />
     <ClCompile Include="src\Engine\Render\Shader\Shader.cpp" />
+    <ClCompile Include="src\Engine\Resources\ResourcesManager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Engine.h" />
     <ClInclude Include="src\Engine\Render\Shader\Shader.h" />
+    <ClInclude Include="src\Engine\Resources\ResourcesManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Engine\Render\Shader\fragment.fs" />
-    <None Include="src\Engine\Render\Shader\vertex.vs" />
+    <None Include="data\Shader\fragment.fs" />
+    <None Include="data\Shader\vertex.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

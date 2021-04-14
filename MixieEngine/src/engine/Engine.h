@@ -13,6 +13,7 @@
 //#include <array>
 
 #include "../Engine/Render/Shader/Shader.h"
+#include "Resources/ResourcesManager.h"
 
 class Engine
 {
@@ -53,6 +54,7 @@ private:
 	//	"fragColor = vec4(color,1.0);"
 	//	"}";
 	Render::Shader shaderProg;//only args or moveConstructor
+	ResourcesManager resManager;
 	GLuint vao;
 private:
 	void processInput(GLFWwindow*);

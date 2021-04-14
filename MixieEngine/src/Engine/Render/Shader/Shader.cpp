@@ -1,15 +1,13 @@
 #include "Shader.h"
 
 namespace Render {
-	Render::Shader::Shader(const std::string& vertexSrc, const std::string& fragSrc, bool file)
+	Render::Shader::Shader(const std::string& vertexSrc, const std::string& fragSrc)
 	{
 		if (!vertexSrc.empty() && !fragSrc.empty()) {
-			if (file) {
-				auto [src1,src2] = loadShaderFromFile(vertexSrc, fragSrc);
-				Init(src1, src2);
-			}else {
-				Init(vertexSrc, fragSrc);
-			}
+			Init(vertexSrc, fragSrc);
+		}
+		else {
+			std::cerr << "Warning:Empty src shaders\n";
 		}
 	}
 
@@ -43,39 +41,6 @@ namespace Render {
 		GLchar infoLog[2048];
 		glGetShaderInfoLog(shaderId, 1024, nullptr, infoLog);
 		std::cerr << "Error::Shader::Compile-time-error:\n" << infoLog << '\n';
-	}
-
-	std::pair<std::string, std::string> Shader::loadShaderFromFile(const std::string& vertexPath,const std::string& fragPath)
-	{
-		std::string vertexCode, fragmentCode;
-		std::ifstream vShaderFile, fShaderFile;
-
-		vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-		try
-		{
-			// Открываем файлы
-			vShaderFile.open(vertexPath);
-			fShaderFile.open(fragPath);
-			std::stringstream vShaderStream, fShaderStream;
-
-			// Считываем содержимое файловых буферов в потоки
-			vShaderStream << vShaderFile.rdbuf();
-			fShaderStream << fShaderFile.rdbuf();
-
-			// Закрываем файлы
-			vShaderFile.close();
-			fShaderFile.close();
-
-			// Конвертируем данные из потока в строковые переменные
-			vertexCode = vShaderStream.str();
-			fragmentCode = fShaderStream.str();
-		}
-		catch (std::ifstream::failure e)
-		{
-			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ\n";
-		}
-		return { vertexCode ,fragmentCode };
 	}
 
 	void Shader::Init(const std::string& vertexSrc, const std::string& fragSrc)

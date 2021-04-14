@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-Engine::Engine() : shaderProg("","")
+Engine::Engine() : shaderProg("",""), resManager("data/")
 {
     printf("Compiled against GLFW %i.%i.%i\n",
         GLFW_VERSION_MAJOR,
@@ -48,15 +48,13 @@ Engine::Engine() : shaderProg("","")
         //throw exception
     }
 
-    //create and bind shader
-    //shaderProg = std::move(Render::Shader(std::string(vertexShader), std::string(fragmentShader)));
-    shaderProg = std::move(Render::Shader("src/Engine/Render/Shader/vertex.vs",
-                                          "src/Engine/Render/Shader/fragment.fs", true));
-    if (!shaderProg.isCompiled()) {
-        std::cerr << "Can't create shader\n";
-        //return -1;
+    if (auto get = resManager.loadShader("simpShader", "Shader/vertex.txt", "Shader/fragment.txt");
+        get != nullptr && get->isCompiled()) {
+        //shaderProg = std::move(*get.get());//hmm
     }
-    //
+    else {
+        std::cerr << "Can't create shader simpShader\n";
+    }
 
     GLuint pointsVbo = 0;
     glGenBuffers(1, &pointsVbo);
@@ -94,18 +92,24 @@ void Engine::run()
         processInput(window); //or uses callback :)
         //render
         glClear(GL_COLOR_BUFFER_BIT);
-        shaderProg.use();
-        glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
+        draw();
         //swap
         glfwSwapBuffers(window);
         //readEvents
         glfwPollEvents();
     }
+    //resManager.~ResourcesManager();
     glfwTerminate();
 }
 
+void Engine::draw()
+{
+    //shaderProg.use();
+    resManager.getShader("simpShader")->use();
+    glBindVertexArray(vao);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+}
 
 void Engine::callbackKeyboard(GLFWwindow* win,int key,int scancode,int act,int mode) {
    
@@ -126,11 +130,7 @@ void Engine::callbackResize(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-void Engine::draw()
-{
 
-   
-}
 
 Engine::~Engine()
 {
