@@ -59,6 +59,9 @@
     <ClInclude Include="src\Engine\Resources\ResourcesManager.h">
       <Filter>Source Files\Engine\Resources\ResourcesManager</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Resources\stb_image.h">
+      <Filter>Source Files\Engine\Resources\ResourcesManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Shader\fragment.fs">

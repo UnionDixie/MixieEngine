@@ -157,6 +157,7 @@
     <ClInclude Include="src\engine\Engine.h" />
     <ClInclude Include="src\Engine\Render\Shader\Shader.h" />
     <ClInclude Include="src\Engine\Resources\ResourcesManager.h" />
+    <ClInclude Include="src\Engine\Resources\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\Shader\fragment.fs" />

@@ -6,6 +6,10 @@
 #include <fstream>
 #include <iostream>
 
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_PNG
+#include "stb_image.h"
+
 ResourcesManager::ResourcesManager(const std::string& dataDir) : dataDir(dataDir)
 {
 
@@ -41,6 +45,22 @@ std::shared_ptr<Render::Shader> ResourcesManager::getShader(const std::string& s
 		std::cerr << "Not found shader in shadersMap\n";
 	}
 	return shader;	
+}
+
+void ResourcesManager::loadTexture(const std::string& textureName, const std::string& texturePath)
+{
+	int channels = 0, width = 0, height = 0;
+
+	stbi_set_flip_vertically_on_load(true);//opengl used dekart,load used coor screen
+	unsigned char* pixels = stbi_load((dataDir + texturePath).c_str(), &width, &height, &channels, 0);//unique
+	if (!pixels) {
+		std::cerr << "Failed load to image file\n";
+	}
+	else {
+
+	}
+
+	stbi_image_free(pixels);
 }
 
 std::string ResourcesManager::getFileString(const std::string& filePath) const

@@ -55,6 +55,8 @@ Engine::Engine() : shaderProg("",""), resManager("data/")
     else {
         std::cerr << "Can't create shader simpShader\n";
     }
+    resManager.loadTexture("map","image/map_16x16.png");
+
 
     GLuint pointsVbo = 0;
     glGenBuffers(1, &pointsVbo);
