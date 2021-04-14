@@ -34,8 +34,6 @@ Engine::Engine() : shaderProg("","")
 
     glfwSetWindowPos(window, 600, 300);//~mid screen
 
-
-
     //log
     int nrAttributes;
     glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
@@ -50,10 +48,10 @@ Engine::Engine() : shaderProg("","")
         //throw exception
     }
 
-
-
     //create and bind shader
-    shaderProg = std::move(Render::Shader(std::string(vertexShader), std::string(fragmentShader)));
+    //shaderProg = std::move(Render::Shader(std::string(vertexShader), std::string(fragmentShader)));
+    shaderProg = std::move(Render::Shader("src/Engine/Render/Shader/vertex.vs",
+                                          "src/Engine/Render/Shader/fragment.fs", true));
     if (!shaderProg.isCompiled()) {
         std::cerr << "Can't create shader\n";
         //return -1;
@@ -82,6 +80,8 @@ Engine::Engine() : shaderProg("","")
     glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
     glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, nullptr);
+
+    glfwSwapInterval(1);//fpsLimit ~60
 
 }
 

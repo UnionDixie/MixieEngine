@@ -156,6 +156,10 @@
     <ClInclude Include="src\engine\Engine.h" />
     <ClInclude Include="src\Engine\Render\Shader\Shader.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Engine\Render\Shader\fragment.fs" />
+    <None Include="src\Engine\Render\Shader\vertex.vs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

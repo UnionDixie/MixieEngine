@@ -48,4 +48,12 @@
       <Filter>Source Files\Engine\Render\Shader</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Engine\Render\Shader\fragment.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="src\Engine\Render\Shader\vertex.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
