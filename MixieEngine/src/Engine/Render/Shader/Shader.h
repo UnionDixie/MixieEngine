@@ -5,10 +5,6 @@
 #include <string>
 //#include <string_view>
 #include <iostream>
-//
-#include <fstream>
-#include <sstream>
-#include <filesystem>
 
 namespace Render {
 	class Shader

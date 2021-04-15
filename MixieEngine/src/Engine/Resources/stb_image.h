@@ -1,3 +1,4 @@
+#pragma warning(disable : 4996)
 /* stb_image - v2.26 - public domain image loader - http://nothings.org/stb
                                   no warranty implied; use at your own risk
 

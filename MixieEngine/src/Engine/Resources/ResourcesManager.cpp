@@ -8,7 +8,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_PNG
-#include "stb_image.h"
+#include "stb_image.h"//turn off warnings
+
 
 ResourcesManager::ResourcesManager(const std::string& dataDir) : dataDir(dataDir)
 {
@@ -30,7 +31,6 @@ std::shared_ptr<Render::Shader> ResourcesManager::loadShader(const std::string& 
 			it = nullptr;
 		}
 	}
-
 	return it;
 }
 
@@ -50,16 +50,14 @@ std::shared_ptr<Render::Shader> ResourcesManager::getShader(const std::string& s
 void ResourcesManager::loadTexture(const std::string& textureName, const std::string& texturePath)
 {
 	int channels = 0, width = 0, height = 0;
-
 	stbi_set_flip_vertically_on_load(true);//opengl used dekart,load used coor screen
 	unsigned char* pixels = stbi_load((dataDir + texturePath).c_str(), &width, &height, &channels, 0);//unique
 	if (!pixels) {
 		std::cerr << "Failed load to image file\n";
 	}
 	else {
-
+		//TODO
 	}
-
 	stbi_image_free(pixels);
 }
 

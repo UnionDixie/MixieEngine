@@ -38,7 +38,7 @@ namespace Render {
 
 	void Shader::catchError(GLuint shaderId)
 	{
-		GLchar infoLog[2048];
+		GLchar infoLog[1024];
 		glGetShaderInfoLog(shaderId, 1024, nullptr, infoLog);
 		std::cerr << "Error::Shader::Compile-time-error:\n" << infoLog << '\n';
 	}
@@ -101,5 +101,4 @@ namespace Render {
 	{
 		glDeleteProgram(idShader);
 	}
-
 }

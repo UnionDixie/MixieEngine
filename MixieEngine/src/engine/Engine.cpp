@@ -1,12 +1,7 @@
 #include "Engine.h"
 
-Engine::Engine() : shaderProg("",""), resManager("data/")
+Engine::Engine() : resManager("data/")
 {
-    printf("Compiled against GLFW %i.%i.%i\n",
-        GLFW_VERSION_MAJOR,
-        GLFW_VERSION_MINOR,
-        GLFW_VERSION_REVISION);
-
     /* Initialize the library */
     if (!glfwInit()) {
         //throw exception
@@ -34,19 +29,8 @@ Engine::Engine() : shaderProg("",""), resManager("data/")
 
     glfwSetWindowPos(window, 600, 300);//~mid screen
 
-    //log
-    int nrAttributes;
-    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+    infoGL();
 
-    std::cout << glGetString(GL_VERSION) << "\n";
-    std::cout << glGetString(GL_VENDOR) << "\n";
-    if (auto log = glGetString(GL_RENDER); log != nullptr) {
-        std::cout << log << "\n";
-    }
-    else {
-        //throw exception
-    }
 
     if (auto get = resManager.loadShader("simpShader", "Shader/vertex.txt", "Shader/fragment.txt");
         get != nullptr && get->isCompiled()) {
@@ -106,11 +90,29 @@ void Engine::run()
 
 void Engine::draw()
 {
-    //shaderProg.use();
     resManager.getShader("simpShader")->use();
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+}
 
+void Engine::infoGL() const
+{
+    printf("Compiled against GLFW %i.%i.%i\n",
+        GLFW_VERSION_MAJOR,
+        GLFW_VERSION_MINOR,
+        GLFW_VERSION_REVISION);
+    //log
+    int nrAttributes;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+    std::cout << glGetString(GL_VERSION) << "\n";
+    std::cout << glGetString(GL_VENDOR) << "\n";
+    if (auto log = glGetString(GL_RENDER); log != nullptr) {
+        std::cout << log << "\n";
+    }
+    else {
+        //throw exception
+    }
 }
 
 void Engine::callbackKeyboard(GLFWwindow* win,int key,int scancode,int act,int mode) {
@@ -120,7 +122,7 @@ void Engine::callbackKeyboard(GLFWwindow* win,int key,int scancode,int act,int m
    }
 }
 
-void Engine::processInput(GLFWwindow* window)
+void Engine::processInput(GLFWwindow* window) const
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
@@ -130,10 +132,4 @@ void Engine::processInput(GLFWwindow* window)
 void Engine::callbackResize(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
-}
-
-
-
-Engine::~Engine()
-{
 }
