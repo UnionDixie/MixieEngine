@@ -1,6 +1,7 @@
 #include "ResourcesManager.h"
 
 #include "../Render/Shader/Shader.h"
+#include "../Render/Texture/Texture.h"
 
 #include <sstream>
 #include <fstream>
@@ -47,18 +48,37 @@ std::shared_ptr<Render::Shader> ResourcesManager::getShader(const std::string& s
 	return shader;	
 }
 
-void ResourcesManager::loadTexture(const std::string& textureName, const std::string& texturePath)
+std::shared_ptr<Render::Texture> ResourcesManager::loadTexture(const std::string& textureName,
+															   const std::string& texturePath)
 {
 	int channels = 0, width = 0, height = 0;
 	stbi_set_flip_vertically_on_load(true);//opengl used dekart,load used coor screen
 	unsigned char* pixels = stbi_load((dataDir + texturePath).c_str(), &width, &height, &channels, 0);//unique
+	std::shared_ptr<Render::Texture> result = nullptr;
 	if (!pixels) {
 		std::cerr << "Failed load to image file\n";
 	}
 	else {
-		//TODO
+		result = textureMap.try_emplace(textureName,
+			     std::make_shared<Render::Texture>(std::make_tuple(width, height, pixels, channels))).first->second;
 	}
 	stbi_image_free(pixels);
+
+	return result;
+}
+
+std::shared_ptr<Render::Texture> ResourcesManager::getTexture(const std::string& textureName)
+{
+	TextureMap::const_iterator it = textureMap.find(textureName);
+	std::shared_ptr<Render::Texture> texture = nullptr;
+	if (it != textureMap.cend()) {
+		texture = it->second;
+	}
+	else {
+		std::cerr << "Not found shader in textureMap\n";
+	}
+	return texture;
+	//return std::shared_ptr<Render::Texture>();
 }
 
 std::string ResourcesManager::getFileString(const std::string& filePath) const

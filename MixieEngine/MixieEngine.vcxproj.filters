@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Engine\Resources\ResourcesManager">
       <UniqueIdentifier>{ce551512-7c6e-478d-8232-23de21caab70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Render\Texture">
+      <UniqueIdentifier>{63c5c06d-a532-4739-bc50-e8870cf0b7b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="src\Engine\Resources\ResourcesManager.cpp">
       <Filter>Source Files\Engine\Resources\ResourcesManager</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Render\Texture\Texture.cpp">
+      <Filter>Source Files\Engine\Render\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Engine.h">
@@ -61,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="src\Engine\Resources\stb_image.h">
       <Filter>Source Files\Engine\Resources\ResourcesManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\Texture\Texture.h">
+      <Filter>Source Files\Engine\Render\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
