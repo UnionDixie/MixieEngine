@@ -13,6 +13,8 @@ namespace Render {
 		Shader(const std::string& vertexSrc, const std::string& fragSrc);
 		bool isCompiled() const;
 		void use() const;
+		void setUniform(const std::string& name, const GLint value) const;
+
 
 		Shader() = delete;
 		Shader(Shader&) = delete;

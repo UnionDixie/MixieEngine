@@ -14,6 +14,7 @@
 
 #include "../Engine/Render/Shader/Shader.h"
 #include "Resources/ResourcesManager.h"
+#include "../Engine/Render/Texture/Texture.h"
 
 class Engine
 {
@@ -35,7 +36,13 @@ private:
 		1.0f,0.f,0.f,
 		0.0f,1.f,0.f,
 		0.0f,0.f,1.f
+	}; 
+	float texCoords[6] = {
+		0.0f, 0.0f,  // lower-left corner  
+		1.0f, 0.0f,  // lower-right corner
+		0.5f, 1.0f   // top-center corner
 	};
+
 	ResourcesManager resManager;
 	GLuint vao;
 private:

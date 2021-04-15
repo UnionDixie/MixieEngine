@@ -73,11 +73,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\Shader\fragment.fs">
+    <Text Include="data\Shader\fragment.txt">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="data\Shader\vertex.vs">
+    </Text>
+    <Text Include="data\Shader\vertex.txt">
       <Filter>Resource Files</Filter>
-    </None>
+    </Text>
   </ItemGroup>
 </Project>

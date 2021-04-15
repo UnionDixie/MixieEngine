@@ -39,9 +39,9 @@ Engine::Engine() : resManager("data/")
     else {
         std::cerr << "Can't create shader simpShader\n";
     }
-    resManager.loadTexture("map","image/map_16x16.png");
+    resManager.loadTexture("wall","image/wall.png");
 
-
+    //VBO
     GLuint pointsVbo = 0;
     glGenBuffers(1, &pointsVbo);
     glBindBuffer(GL_ARRAY_BUFFER, pointsVbo);
@@ -52,6 +52,13 @@ Engine::Engine() : resManager("data/")
     glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
 
+    GLuint textureVBO = 0;
+    glGenBuffers(1, &textureVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoords), texCoords, GL_STATIC_DRAW);
+    //texCoords
+
+    //VAO
     vao = 0;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -60,10 +67,18 @@ Engine::Engine() : resManager("data/")
     glBindBuffer(GL_ARRAY_BUFFER, pointsVbo);
     glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, nullptr);
     
-
     glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
     glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, nullptr);
+
+    //texture
+    glEnableVertexAttribArray(2);
+    glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
+    glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, nullptr);
+    //
+    resManager.getShader("simpShader")->use();
+    resManager.getShader("simpShader")->setUniform("tex",0);
+    //
 
     glfwSwapInterval(1);//fpsLimit ~60
 
@@ -91,6 +106,7 @@ void Engine::run()
 void Engine::draw()
 {
     resManager.getShader("simpShader")->use();
+    resManager.getTexture("wall")->bind();
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }

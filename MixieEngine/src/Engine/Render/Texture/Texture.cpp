@@ -5,6 +5,9 @@ namespace Render {
 	Texture::Texture(rawData data, Filters filter) : Data(data),Filter(filter)
 	{
 		glGenTextures(1, &id);
+
+		glActiveTexture(GL_TEXTURE0);//slot max:16
+
 		glBindTexture(GL_TEXTURE_2D, id);
 		auto [x, y, pixels, channels] = Data;
 		GLenum mode;
@@ -43,7 +46,7 @@ namespace Render {
 
 	void Texture::bind() const
 	{
-		
+		glBindTexture(GL_TEXTURE_2D, id);
 	}
 
 	Texture::~Texture()
