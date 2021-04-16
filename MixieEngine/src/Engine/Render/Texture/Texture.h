@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad/glad.h>
+#include <Glad/include/glad/glad.h>
 #include <string>
 #include <map>
 
@@ -17,8 +17,8 @@ namespace Render {
 		Texture() = delete;
 		Texture(const Texture&) = delete;
 		Texture& operator=(const Texture&) = delete;
-		Texture(Texture&&);
-		Texture& operator=(Texture&&);
+		Texture(Texture&&) noexcept;
+		Texture& operator=(Texture&&) noexcept;
 
 		void bind() const;
 
