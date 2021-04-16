@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-Engine::Engine() : resManager("data/")
+Engine::Engine() : resManager("data/"), windowSize(640,480)
 {
     /* Initialize the library */
     if (!glfwInit()) {
@@ -9,7 +9,7 @@ Engine::Engine() : resManager("data/")
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Hello OpenGL", nullptr, nullptr);
+    window = glfwCreateWindow(windowSize.x, windowSize.y, "Hello OpenGL", nullptr, nullptr);
     
     if (!window)
     {
@@ -39,7 +39,8 @@ Engine::Engine() : resManager("data/")
     else {
         std::cerr << "Can't create shader simpShader\n";
     }
-    resManager.loadTexture("wall","image/wall.png");
+    //resManager.loadTexture("wall", "image/wall.png");
+    resManager.loadTexture("wall", "image/fun.png");
 
     //VBO
     GLuint pointsVbo = 0;
@@ -76,8 +77,9 @@ Engine::Engine() : resManager("data/")
     glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
     glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, nullptr);
     //
-    resManager.getShader("simpShader")->use();
-    resManager.getShader("simpShader")->setUniform("tex",0);
+    auto simpShader = resManager.getShader("simpShader");
+    simpShader->use();
+    simpShader->setUniform("tex", 0);
     //
 
     glfwSwapInterval(1);//fpsLimit ~60
@@ -89,6 +91,7 @@ void Engine::run()
     glClearColor(1, 1, 0, 1);//RGBA
     while (!glfwWindowShouldClose(window))
     {
+        logic();
         //userInput
         processInput(window); //or uses callback :)
         //render
@@ -103,12 +106,49 @@ void Engine::run()
     glfwTerminate();
 }
 
+void Engine::logic()
+{
+    //Transform object
+    // create matrix
+    glm::mat4 transform = glm::mat4(1.0f); // E
+    //transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+    transform = glm::rotate(transform, (1.0f/std::tan((float)glfwGetTime())), glm::vec3(1.0f, 1.0f, 1.0f));
+    auto scales = std::sin((float)glfwGetTime());
+    transform = glm::scale(transform, glm::vec3(scales, scales, 1));
+
+
+    // set uniform mat4
+    auto shader = resManager.getShader("simpShader");
+    shader->use();
+    unsigned int transformLoc = glGetUniformLocation(shader->idShader, "transform");
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+}
+
 void Engine::draw()
 {
     resManager.getShader("simpShader")->use();
     resManager.getTexture("wall")->bind();
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+
+
+    auto logc = [=]() {
+        // create matrix
+        glm::mat4 transform = glm::mat4(1.0f); // E
+        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+        auto scales = std::sin((float)glfwGetTime());
+        transform = glm::scale(transform, glm::vec3(scales, scales, 1));
+        // set uniform mat4
+        auto shader = resManager.getShader("simpShader");
+        shader->use();
+        unsigned int transformLoc = glGetUniformLocation(shader->idShader, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+    };
+    logc();
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+
 }
 
 void Engine::infoGL() const

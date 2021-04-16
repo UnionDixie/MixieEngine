@@ -3,6 +3,11 @@
 #include <GLAD/include/glad/glad.h>
 #include <GLFW/include/GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <cmath>
+
 //#include <stdio.h>
 #include <iostream>
 //#include <stdexcept>
@@ -25,8 +30,10 @@ public:
 	~Engine() = default;
 private:
 	GLFWwindow* window = nullptr;
-	const ui SCR_WIDTH = 640;
-	const ui SCR_HEIGHT = 480;
+	//const ui SCR_WIDTH = 640;
+	//const ui SCR_HEIGHT = 480;
+
+	glm::ivec2 windowSize;
 	GLfloat points[9] = {
 		0.0f,0.5f,0.0f,
 		-0.5f,-0.5f,0.0f,
@@ -51,5 +58,6 @@ private:
 	static void callbackKeyboard(GLFWwindow*, int, int, int, int);
 	void draw();
 	void infoGL() const;
+	void logic();
 };
 

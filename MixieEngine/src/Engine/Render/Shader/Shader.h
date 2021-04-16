@@ -22,13 +22,15 @@ namespace Render {
 		Shader& operator=(Shader&& shader) noexcept;//move assignment
 		Shader(Shader&& shader) noexcept;//move constructor
 
+		GLuint idShader = 0;
+
 		~Shader();
 	private:
 		bool createShader(const std::string& shaderSrc, const GLenum shaderType, GLuint& shaderID);
 		void catchError(GLuint shaderId);
 		void Init(const std::string& vertexSrc, const std::string& fragSrc);
 		bool successCompiled = false;
-		GLuint idShader = 0;
+		//GLuint idShader = 0;
 
 	};
 }
