@@ -6,6 +6,9 @@ layout (location = 2) in vec2 vertexTexture;
 
 uniform mat4 transform;
 
+//uniform mat4 modelMat;
+//uniform mat4 projMat;
+
 out vec3 color;
 out vec2 texturePos;
 
@@ -19,8 +22,11 @@ void main()
 //gl_Position = vec4(vertexPos.x,-vertexPos.y,vertexPos.z,1.0);//reverse triangles
 
 //scale 0.5 rotate 90
+
 color = vertexColor;
-texturePos = vec2(vertexTexture.x, vertexTexture.y);
+texturePos = vertexTexture;
 gl_Position = transform * vec4(vertexPos, 1.0f);
+
+//gl_Position = projMat * modelMat * vec4(vertexPos, 1.0f);
 
 };

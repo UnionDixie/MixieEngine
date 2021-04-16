@@ -34,6 +34,15 @@
     <Filter Include="Source Files\Engine\Render\Texture">
       <UniqueIdentifier>{63c5c06d-a532-4739-bc50-e8870cf0b7b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Render\vboClass">
+      <UniqueIdentifier>{5b7d7101-6d2c-4ab6-b8e4-ad7086fe48f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Render\vaoClass">
+      <UniqueIdentifier>{0b70a3b2-a7ca-4e84-9f63-8064771ae56f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Render\sprite">
+      <UniqueIdentifier>{e4bb676d-f63f-4326-b5cd-42fdbaaf1714}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -54,6 +63,9 @@
     <ClCompile Include="src\Engine\Render\Texture\Texture.cpp">
       <Filter>Source Files\Engine\Render\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Render\sprite\sprite.cpp">
+      <Filter>Source Files\Engine\Render\sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Engine.h">
@@ -70,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="src\Engine\Render\Texture\Texture.h">
       <Filter>Source Files\Engine\Render\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\vao\vao.h">
+      <Filter>Source Files\Engine\Render\vaoClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\vbo\vbo.h">
+      <Filter>Source Files\Engine\Render\vboClass</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\sprite\sprite.h">
+      <Filter>Source Files\Engine\Render\sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

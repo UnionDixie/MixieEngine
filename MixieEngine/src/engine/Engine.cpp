@@ -1,6 +1,16 @@
 #include "Engine.h"
 
-Engine::Engine() : resManager("data/"), windowSize(640,480)
+Engine::Engine() : resManager("data/"), windowSize(640,480), windowPos(600,300)
+{
+    //Init glfw and glad
+    mainInit();
+    //ver openGl    
+    infoGL();
+    //Load Data:shaders,texture and other..
+    loadData();
+}
+
+void Engine::mainInit()
 {
     /* Initialize the library */
     if (!glfwInit()) {
@@ -10,7 +20,7 @@ Engine::Engine() : resManager("data/"), windowSize(640,480)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     window = glfwCreateWindow(windowSize.x, windowSize.y, "Hello OpenGL", nullptr, nullptr);
-    
+    glfwSetWindowPos(window, windowPos.x, windowPos.y);//~mid screen
     if (!window)
     {
         glfwTerminate();
@@ -26,129 +36,7 @@ Engine::Engine() : resManager("data/"), windowSize(640,480)
     {
         //throw exception
     }
-
-    glfwSetWindowPos(window, 600, 300);//~mid screen
-
-    infoGL();
-
-
-    if (auto get = resManager.loadShader("simpShader", "Shader/vertex.txt", "Shader/fragment.txt");
-        get != nullptr && get->isCompiled()) {
-        //shaderProg = std::move(*get.get());//hmm
-    }
-    else {
-        std::cerr << "Can't create shader simpShader\n";
-    }
-    //resManager.loadTexture("wall", "image/wall.png");
-    resManager.loadTexture("wall", "image/fun.png");
-
-    //VBO
-    GLuint pointsVbo = 0;
-    glGenBuffers(1, &pointsVbo);
-    glBindBuffer(GL_ARRAY_BUFFER, pointsVbo);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(points), points, GL_STATIC_DRAW);
-
-    GLuint colorsVbo = 0;
-    glGenBuffers(1, &colorsVbo);
-    glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-
-    GLuint textureVBO = 0;
-    glGenBuffers(1, &textureVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoords), texCoords, GL_STATIC_DRAW);
-    //texCoords
-
-    //VAO
-    vao = 0;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    glEnableVertexAttribArray(0);//for location = 0
-    glBindBuffer(GL_ARRAY_BUFFER, pointsVbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, nullptr);
-    
-    glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, colorsVbo);
-    glVertexAttribPointer(1, 3, GL_FLOAT, false, 0, nullptr);
-
-    //texture
-    glEnableVertexAttribArray(2);
-    glBindBuffer(GL_ARRAY_BUFFER, textureVBO);
-    glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, nullptr);
-    //
-    auto simpShader = resManager.getShader("simpShader");
-    simpShader->use();
-    simpShader->setUniform("tex", 0);
-    //
-
     glfwSwapInterval(1);//fpsLimit ~60
-
-}
-
-void Engine::run()
-{
-    glClearColor(1, 1, 0, 1);//RGBA
-    while (!glfwWindowShouldClose(window))
-    {
-        logic();
-        //userInput
-        processInput(window); //or uses callback :)
-        //render
-        glClear(GL_COLOR_BUFFER_BIT);
-        draw();
-        //swap
-        glfwSwapBuffers(window);
-        //readEvents
-        glfwPollEvents();
-    }
-    //resManager.~ResourcesManager();
-    glfwTerminate();
-}
-
-void Engine::logic()
-{
-    //Transform object
-    // create matrix
-    glm::mat4 transform = glm::mat4(1.0f); // E
-    //transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-    transform = glm::rotate(transform, (1.0f/std::tan((float)glfwGetTime())), glm::vec3(1.0f, 1.0f, 1.0f));
-    auto scales = std::sin((float)glfwGetTime());
-    transform = glm::scale(transform, glm::vec3(scales, scales, 1));
-
-
-    // set uniform mat4
-    auto shader = resManager.getShader("simpShader");
-    shader->use();
-    unsigned int transformLoc = glGetUniformLocation(shader->idShader, "transform");
-    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
-}
-
-void Engine::draw()
-{
-    resManager.getShader("simpShader")->use();
-    resManager.getTexture("wall")->bind();
-    glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
-    auto logc = [=]() {
-        // create matrix
-        glm::mat4 transform = glm::mat4(1.0f); // E
-        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-        auto scales = std::sin((float)glfwGetTime());
-        transform = glm::scale(transform, glm::vec3(scales, scales, 1));
-        // set uniform mat4
-        auto shader = resManager.getShader("simpShader");
-        shader->use();
-        unsigned int transformLoc = glGetUniformLocation(shader->idShader, "transform");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
-    };
-    logc();
-
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
 }
 
 void Engine::infoGL() const
@@ -171,11 +59,80 @@ void Engine::infoGL() const
     }
 }
 
-void Engine::callbackKeyboard(GLFWwindow* win,int key,int scancode,int act,int mode) {
-   
-    if (key == GLFW_KEY_ESCAPE && scancode == GLFW_PRESS) {
-        glfwSetWindowShouldClose(win, true);
-   }
+void Engine::loadData()
+{
+    if (auto get = resManager.loadShader("simpShader", "Shader/vertex.txt", "Shader/fragment.txt");
+        get != nullptr && get->isCompiled()) {
+        //shaderProg = std::move(*get.get());//hmm
+    }
+    else {
+        std::cerr << "Can't create shader simpShader\n";
+    }
+    //
+    auto simpShader = resManager.getShader("simpShader");
+    auto texturePtr = resManager.loadTexture("fun", "image/fun.png");
+
+    //VBO   
+    vboList.emplace_back(points, 9);
+    const auto pointsVBO = vboList.back().getID();
+
+    vboList.emplace_back(colors, 9);
+    const auto colorsVbo = vboList.back().getID();
+
+    vboList.emplace_back(texCoords, 6);
+    const auto textureVBO = vboList.back().getID();
+
+    //VAO
+    //packet id,attrib,points
+    Render::VAO::vboPacket packetPoints = { pointsVBO,0,3 },
+                           packetColors = { colorsVbo,1,3 },
+                           packetTexture = { textureVBO,2,2 };
+    std::initializer_list<Render::VAO::vboPacket> packets{ packetPoints,
+                                                           packetColors,
+                                                           packetTexture };
+    vaoList.emplace_back(packets);
+    //Sprite
+    triangle.setParam(vboList, vaoList, simpShader, texturePtr);
+
+}
+
+void Engine::run()
+{
+    glClearColor(1, 1, 0, 1);//RGBA
+    while (!glfwWindowShouldClose(window))
+    {
+        update();
+        //userInput
+        processInput(window); //or uses callback :)
+        //render
+        glClear(GL_COLOR_BUFFER_BIT);
+        draw();
+        //swap
+        glfwSwapBuffers(window);
+        //readEvents
+        glfwPollEvents();
+    }
+    //resManager.~ResourcesManager();
+    vboList.clear();
+    vaoList.clear();
+    glfwTerminate();
+}
+
+void Engine::update()
+{
+    //Transform object
+    glm::mat4 transform = glm::mat4(1.0f); //
+    //transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+    transform = glm::rotate(transform, (1.0f/std::tan((float)glfwGetTime())), glm::vec3(1.0f, 1.0f, 1.0f));
+    auto scales = std::sin((float)glfwGetTime());
+    transform = glm::scale(transform, glm::vec3(scales, scales, 1));
+
+    triangle.setMat4("transform", transform);
+}
+
+void Engine::draw() 
+{
+    triangle.draw();
 }
 
 void Engine::processInput(GLFWwindow* window) const
