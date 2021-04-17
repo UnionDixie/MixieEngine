@@ -59,6 +59,8 @@ void Engine::infoGL() const
     }
 }
 
+#include "../Engine/shapes/shapes.h"
+
 void Engine::loadData()
 {
     if (auto get = resManager.loadShader("simpShader", "Shader/vertex.txt", "Shader/fragment.txt");
@@ -73,13 +75,13 @@ void Engine::loadData()
     auto texturePtr = resManager.loadTexture("fun", "image/fun.png");
 
     //VBO   
-    vboList.emplace_back(points, 9);
+    vboList.emplace_back(Shapes::points, 9);
     const auto pointsVBO = vboList.back().getID();
 
-    vboList.emplace_back(colors, 9);
+    vboList.emplace_back(Shapes::colors, 9);
     const auto colorsVbo = vboList.back().getID();
 
-    vboList.emplace_back(texCoords, 6);
+    vboList.emplace_back(Shapes::texCoords, 6);
     const auto textureVBO = vboList.back().getID();
 
     //VAO
@@ -120,14 +122,44 @@ void Engine::run()
 
 void Engine::update()
 {
-    //Transform object
-    glm::mat4 transform = glm::mat4(1.0f); //
+    ////Transform object
+    glm::mat4 transformTan = glm::mat4(1.0f); //
     //transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-    transform = glm::rotate(transform, (1.0f/std::tan((float)glfwGetTime())), glm::vec3(1.0f, 1.0f, 1.0f));
+    transformTan = glm::rotate(transformTan, (1.0f/std::tan((float)glfwGetTime())), glm::vec3(1.0f, 1.0f, 1.0f));
     auto scales = std::sin((float)glfwGetTime());
-    transform = glm::scale(transform, glm::vec3(scales, scales, 1));
+    transformTan = glm::scale(transformTan, glm::vec3(scales, scales, 1));
 
-    triangle.setMat4("transform", transform);
+    triangle.setMat4("transform", transformTan);
+
+    // —оздаем преобразование
+    glm::mat4 model = glm::mat4(1.0f); // сначала инициализируем единичную матрицу
+    glm::mat4 view = glm::mat4(1.0f);
+    glm::mat4 projection = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    projection = glm::perspective(glm::radians(45.0f), (float)windowSize.x / (float)windowSize.y, 0.1f, 100.0f);
+
+
+    glm::mat4 transform = glm::mat4(1.0f);
+
+    glm::mat4 model1 = glm::mat4(1.0f);
+    model1 = glm::rotate(model1, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+
+    transform = projection * view * model;
+
+    // ѕолучаем местоположение uniform-матриц...
+    //unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
+    //unsigned int viewLoc = glGetUniformLocation(ourShader.ID, "view");
+    // ...передаем их в шейдеры (разными способами)
+    //glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+    //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+
+    // ѕримечание: ¬ насто€щее врем€ мы устанавливаем матрицу проекции дл€
+    //каждого кадра, но поскольку матрица проекции редко мен€етс€, 
+    //то рекомендуетс€ устанавливать еЄ (единожды) вне основного цикла
+
+    //triangle.setMat4("transform", transform);
+
 }
 
 void Engine::draw() 

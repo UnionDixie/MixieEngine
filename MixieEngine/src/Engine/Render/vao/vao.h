@@ -13,35 +13,15 @@ namespace Render {
         //id attrib and n
         typedef std::tuple<GLuint, GLuint, GLuint> vboPacket;
         VAO(const std::initializer_list<vboPacket>& list);
+
+        VAO() = delete;
+        //VAO(const VAO&) = delete;
+        //VAO& operator=(const VAO&) = delete;
+
         GLuint getID() const;
         ~VAO();
 
     private:
         GLuint id;
     };
-
-    inline VAO::VAO(const std::initializer_list<vboPacket>& list)
-    {
-        id = 0;
-        glGenVertexArrays(1, &id);
-        glBindVertexArray(id);
-
-        for (const auto [id, attrib, n] : list)
-        {
-            glEnableVertexAttribArray(attrib);
-            glBindBuffer(GL_ARRAY_BUFFER, id);
-            glVertexAttribPointer(attrib, n, GL_FLOAT, false, 0, nullptr);
-        }
-    }
-
-    inline GLuint VAO::getID() const
-    {
-        return id;
-    }
-
-    inline VAO::~VAO()
-    {
-        glDeleteVertexArrays(1, &id);
-    }
-
 }

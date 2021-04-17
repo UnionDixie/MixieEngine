@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Engine\Render\sprite">
       <UniqueIdentifier>{e4bb676d-f63f-4326-b5cd-42fdbaaf1714}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Render\ebo">
+      <UniqueIdentifier>{b3b0e030-56c4-480d-81be-dad32b546ba7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -65,6 +68,15 @@
     </ClCompile>
     <ClCompile Include="src\Engine\Render\sprite\sprite.cpp">
       <Filter>Source Files\Engine\Render\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\vao\vao.cpp">
+      <Filter>Source Files\Engine\Render\vaoClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\vbo\vbo.cpp">
+      <Filter>Source Files\Engine\Render\vboClass</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\ebo\ebo.cpp">
+      <Filter>Source Files\Engine\Render\ebo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="src\Engine\Render\sprite\sprite.h">
       <Filter>Source Files\Engine\Render\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\shapes\shapes.h">
+      <Filter>Source Files\Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Render\ebo\ebo.h">
+      <Filter>Source Files\Engine\Render\ebo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

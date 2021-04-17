@@ -26,7 +26,12 @@ namespace Render {
 	{
 		NameMatrix = name;
 		Matrix = matrix;
-		
+	}
+
+	void Sprite::setEBO(const unsigned int* indices, const int n)
+	{
+		//Render::EBO tmp(indices, n);
+		//ebo = tmp;
 	}
 
 	void Sprite::transform()

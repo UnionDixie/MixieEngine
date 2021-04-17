@@ -149,14 +149,18 @@
   <ItemGroup>
     <ClCompile Include="Libs\GLAD\src\glad.c" />
     <ClCompile Include="src\engine\Engine.cpp" />
+    <ClCompile Include="src\Engine\Render\ebo\ebo.cpp" />
     <ClCompile Include="src\Engine\Render\Shader\Shader.cpp" />
     <ClCompile Include="src\Engine\Render\sprite\sprite.cpp" />
     <ClCompile Include="src\Engine\Render\Texture\Texture.cpp" />
+    <ClCompile Include="src\Engine\Render\vao\vao.cpp" />
+    <ClCompile Include="src\Engine\Render\vbo\vbo.cpp" />
     <ClCompile Include="src\Engine\Resources\ResourcesManager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\Engine.h" />
+    <ClInclude Include="src\Engine\Render\ebo\ebo.h" />
     <ClInclude Include="src\Engine\Render\Shader\Shader.h" />
     <ClInclude Include="src\Engine\Render\sprite\sprite.h" />
     <ClInclude Include="src\Engine\Render\Texture\Texture.h" />
@@ -164,6 +168,7 @@
     <ClInclude Include="src\Engine\Render\vbo\vbo.h" />
     <ClInclude Include="src\Engine\Resources\ResourcesManager.h" />
     <ClInclude Include="src\Engine\Resources\stb_image.h" />
+    <ClInclude Include="src\Engine\shapes\shapes.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\Shader\fragment.txt" />

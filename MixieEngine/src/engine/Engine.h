@@ -33,23 +33,7 @@ public:
 	~Engine() = default;
 private:
 	GLFWwindow* window = nullptr;
-
 	glm::ivec2 windowSize, windowPos;
-	GLfloat points[9] = {
-		0.0f,0.5f,0.0f,
-		-0.5f,-0.5f,0.0f,
-		0.5f,-0.5f,0.0f,
-	};
-	GLfloat colors[9] = {
-		1.0f,0.f,0.f,
-		0.0f,1.f,0.f,
-		0.0f,0.f,1.f
-	}; 
-	float texCoords[6] = {
-		0.0f, 0.0f,  // lower-left corner  
-		1.0f, 0.0f,  // lower-right corner
-		0.5f, 1.0f   // top-center corner
-	};
 	ResourcesManager resManager;
 	Render::Sprite triangle;
 	std::list<Render::VBO> vboList;
