@@ -10,6 +10,9 @@ namespace Render {
 	Sprite::Sprite()
 	{
 		Matrix = glm::mat4(1.0f);
+		postion = glm::vec3(0.0f, 0.0f, 0.0f);
+		float angle = 0;
+		scales = glm::vec3(1.0f, 1.0f, 1.0f);
 	}
 
 	void Sprite::setParam(std::list<Render::VBO> vboL,
@@ -22,23 +25,22 @@ namespace Render {
 		texturePtr = texture_Ptr;
 	}
 
-	void Sprite::setMat4(const std::string& name, const glm::mat4& matrix)
-	{
-		NameMatrix = name;
-		Matrix = matrix;
-	}
-
-	void Sprite::setEBO(const unsigned int* indices, const int n)
-	{
-		//Render::EBO tmp(indices, n);
-		//ebo = tmp;
-	}
-
 	void Sprite::transform()
 	{
 		shaderPtr->use();
+		update();
 		unsigned int transformLoc = glGetUniformLocation(shaderPtr->getID(), "transform");
 		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(Matrix));
+	}
+
+	void Sprite::update()
+	{
+		//Transform object
+		glm::mat4 transformMat = glm::mat4(1.0f); //
+		transformMat = glm::translate(transformMat, postion);
+		transformMat = glm::rotate(transformMat, angle, glm::vec3(0.0f, 1.0f, 1.0f));//pitch,yaw,roll
+		transformMat = glm::scale(transformMat, scales);
+		Matrix = transformMat;
 	}
 
 	void Sprite::draw()
@@ -48,6 +50,36 @@ namespace Render {
 		texturePtr->bind();
 		glBindVertexArray(vaoList.front().getID());
 		glDrawArrays(GL_TRIANGLES, 0, 3);
+	}
+
+	void Sprite::setPos(glm::vec3 newPos)
+	{
+		postion = newPos;
+	}
+
+	void Sprite::move(glm::vec3 moves)
+	{
+		postion += moves;
+	}
+
+	void Sprite::rotate(float angles,bool fl)
+	{
+		if (!fl) {
+			angle += angles;
+		}
+		else {
+			angle = angles;
+		}
+	}
+
+	void Sprite::scale(glm::vec3 scale, bool fl)
+	{
+		if (!fl) {
+			scales += scale;
+		}
+		else {
+			scales = scale;
+		}
 	}
 
 	Sprite::~Sprite()

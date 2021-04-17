@@ -94,8 +94,13 @@ void Engine::loadData()
                                                            packetTexture };
     vaoList.emplace_back(packets);
     //Sprite
-    triangle.setParam(vboList, vaoList, simpShader, texturePtr);
+    triangle1.setParam(vboList, vaoList, simpShader, texturePtr);
+    triangle2.setParam(vboList, vaoList, simpShader, texturePtr);
+    //triangle3.setParam(vboList, vaoList, simpShader, texturePtr);
+    //triangle4.setParam(vboList, vaoList, simpShader, texturePtr);
 
+
+    triangle2.setPos(glm::vec3(0.4f, 0.4f, 0.0f));
 }
 
 void Engine::run()
@@ -103,7 +108,6 @@ void Engine::run()
     glClearColor(1, 1, 0, 1);//RGBA
     while (!glfwWindowShouldClose(window))
     {
-        update();
         //userInput
         processInput(window); //or uses callback :)
         //render
@@ -122,56 +126,72 @@ void Engine::run()
 
 void Engine::update()
 {
-    ////Transform object
-    glm::mat4 transformTan = glm::mat4(1.0f); //
-    //transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-    transformTan = glm::rotate(transformTan, (1.0f/std::tan((float)glfwGetTime())), glm::vec3(1.0f, 1.0f, 1.0f));
+    //Transform objects
+    triangle1.rotate((1.0f / std::tan((float)glfwGetTime())));
     auto scales = std::sin((float)glfwGetTime());
-    transformTan = glm::scale(transformTan, glm::vec3(scales, scales, 1));
+    triangle1.scale(glm::vec3(scales, scales, 1));
 
-    triangle.setMat4("transform", transformTan);
-
-    // —оздаем преобразование
-    glm::mat4 model = glm::mat4(1.0f); // сначала инициализируем единичную матрицу
-    glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 projection = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    projection = glm::perspective(glm::radians(45.0f), (float)windowSize.x / (float)windowSize.y, 0.1f, 100.0f);
-
-
-    glm::mat4 transform = glm::mat4(1.0f);
-
-    glm::mat4 model1 = glm::mat4(1.0f);
-    model1 = glm::rotate(model1, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-
-    transform = projection * view * model;
-
-    // ѕолучаем местоположение uniform-матриц...
-    //unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
-    //unsigned int viewLoc = glGetUniformLocation(ourShader.ID, "view");
-    // ...передаем их в шейдеры (разными способами)
-    //glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-    //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-
-    // ѕримечание: ¬ насто€щее врем€ мы устанавливаем матрицу проекции дл€
-    //каждого кадра, но поскольку матрица проекции редко мен€етс€, 
-    //то рекомендуетс€ устанавливать еЄ (единожды) вне основного цикла
-
-    //triangle.setMat4("transform", transform);
-
+    //triangle2.scale(glm::vec3(scales, scales, 1));
+    //auto move = std::cos(glfwGetTime()) * -0.001f;
+    //triangle2.move(glm::vec3(move, move, 0.f));
 }
 
 void Engine::draw() 
 {
-    triangle.draw();
+    update();
+    triangle1.draw();
+    triangle2.draw();
 }
 
-void Engine::processInput(GLFWwindow* window) const
+void Engine::processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
+    int state1 = glfwGetKey(window, GLFW_KEY_W);
+    int state2 = glfwGetKey(window, GLFW_KEY_S);
+    int state3 = glfwGetKey(window, GLFW_KEY_A);
+    int state4 = glfwGetKey(window, GLFW_KEY_D);
+    int state5 = glfwGetKey(window, GLFW_KEY_Q);
+    int state6 = glfwGetKey(window, GLFW_KEY_E);
+    int state7 = glfwGetKey(window, GLFW_KEY_T);
+    int state8 = glfwGetKey(window, GLFW_KEY_G);
+    //int state9 = glfwGetKey(window, GLFW_KEY_R);
+    if (state1 == GLFW_PRESS)
+    {
+        triangle2.move(glm::vec3(0.f, 0.01f, 0.f));
+    }
+    if (state2 == GLFW_PRESS)
+    {
+        triangle2.move(glm::vec3(0.f, -0.01f, 0.f));
+    }
+    if (state3 == GLFW_PRESS)
+    {
+        triangle2.move(glm::vec3(-0.01f, 0.0f, 0.f));
+    }
+    if (state4 == GLFW_PRESS)
+    { 
+        triangle2.move(glm::vec3(0.01f, 0.0f, 0.f));
+    }
+    if (state5 == GLFW_PRESS)
+    {
+        triangle2.rotate(0.1f);
+    }
+    if (state6 == GLFW_PRESS)
+    {
+        triangle2.rotate(-0.1f);
+    }
+    if (state7 == GLFW_PRESS)
+    {
+        triangle2.scale(glm::vec3(0.1f, 0.1f, 1),false);
+    }
+    if (state8 == GLFW_PRESS)
+    {
+        triangle2.scale(glm::vec3(-0.1f, -0.1f, 1),false);
+    }
+
+
+
 }
 
 void Engine::callbackResize(GLFWwindow* window, int width, int height)

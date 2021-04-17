@@ -24,24 +24,32 @@ namespace Render {
 		typedef std::shared_ptr<Render::Texture> texture_ptr;
 	public:
 		Sprite();
-		void setParam(std::list<Render::VBO> vboL,
-					  std::list<Render::VAO> vaoL,
-					  shader_ptr shader_Ptr, texture_ptr texture_Ptr);
-		void setMat4(const std::string& name, const glm::mat4& matrix);
-		void setEBO(const unsigned int* indices,const int n);
-		void draw();
 
 		//VAO() = delete;
 		Sprite(const Sprite&) = delete;
 		Sprite& operator=(const Sprite&) = delete;
 
-
-
 		~Sprite();
+	public:
+		void setParam(std::list<Render::VBO> vboL,
+			std::list<Render::VAO> vaoL,
+			shader_ptr shader_Ptr, texture_ptr texture_Ptr);
+		//void setMat4(const std::string& name, const glm::mat4& matrix);
+		//void setEBO(const unsigned int* indices,const int n);
+		void draw();
+		void setPos(glm::vec3 newPos);
+		void move(glm::vec3 moves);
+		void rotate(float angle, bool fl = true);
+		void scale(glm::vec3 scale, bool fl = true);
 
 	private:
 		void transform();
+		void update();
 	private:
+		glm::vec3 postion;
+		float angle;
+		glm::vec3 scales;
+
 		glm::mat4 Matrix;
 		std::string NameMatrix;
 		std::list<Render::VBO> vboList;

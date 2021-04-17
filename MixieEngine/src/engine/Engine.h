@@ -35,12 +35,13 @@ private:
 	GLFWwindow* window = nullptr;
 	glm::ivec2 windowSize, windowPos;
 	ResourcesManager resManager;
-	Render::Sprite triangle;
+	Render::Sprite triangle1, triangle2,
+		           triangle3, triangle4;
 	std::list<Render::VBO> vboList;
 	std::list<Render::VAO> vaoList;
 
 private:
-	void processInput(GLFWwindow*) const;
+	void processInput(GLFWwindow*);
 	static void callbackResize(GLFWwindow*, int, int);
 	void draw();
 	void infoGL() const;
