@@ -11,7 +11,7 @@ namespace Render {
 	{
 		Matrix = glm::mat4(1.0f);
 		postion = glm::vec3(0.0f, 0.0f, 0.0f);
-		float angle = 0;
+		angle = 0;
 		scales = glm::vec3(1.0f, 1.0f, 1.0f);
 	}
 

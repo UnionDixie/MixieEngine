@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Engine\Render\ebo">
       <UniqueIdentifier>{b3b0e030-56c4-480d-81be-dad32b546ba7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Utility">
+      <UniqueIdentifier>{609f7278-396f-4499-ab49-85f99b4cdf74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -104,11 +107,17 @@
     <ClInclude Include="src\Engine\Render\sprite\sprite.h">
       <Filter>Source Files\Engine\Render\sprite</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Render\ebo\ebo.h">
+      <Filter>Source Files\Engine\Render\ebo</Filter>
+    </ClInclude>
     <ClInclude Include="src\Engine\shapes\shapes.h">
       <Filter>Source Files\Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Render\ebo\ebo.h">
-      <Filter>Source Files\Engine\Render\ebo</Filter>
+    <ClInclude Include="src\Engine\Utility\log.h">
+      <Filter>Source Files\Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Utility\future.h">
+      <Filter>Source Files\Engine\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -131,7 +131,7 @@ void Engine::update()
     auto scales = std::sin((float)glfwGetTime());
     triangle1.scale(glm::vec3(scales, scales, 1));
 
-    //triangle2.scale(glm::vec3(scales, scales, 1));
+    triangle2.scale(glm::vec3(scales / 2, scales / 2, 1));
     //auto move = std::cos(glfwGetTime()) * -0.001f;
     //triangle2.move(glm::vec3(move, move, 0.f));
 }
