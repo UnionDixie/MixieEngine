@@ -3,10 +3,11 @@
 #include <GLAD/include/glad/glad.h>
 
 namespace Render {
+	//building...
 	class EBO
 	{
 	public:
-		EBO();
+		EBO() = delete;
 		EBO(const unsigned int* indices, const int n);
 		GLuint getID() const;
 		~EBO();

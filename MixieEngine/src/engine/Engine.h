@@ -2,11 +2,7 @@
 
 #include <GLAD/include/glad/glad.h>
 #include <GLFW/include/GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <cmath>
 
 #include <iostream>
 #include <list>
@@ -40,6 +36,7 @@ private:
 	std::list<Render::VBO> vboList;
 	std::list<Render::VAO> vaoList;
 
+	
 private:
 	void processInput(GLFWwindow*);
 	static void callbackResize(GLFWwindow*, int, int);

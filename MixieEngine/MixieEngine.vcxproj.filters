@@ -49,6 +49,9 @@
     <Filter Include="Source Files\Engine\Utility">
       <UniqueIdentifier>{609f7278-396f-4499-ab49-85f99b4cdf74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{a2e03cc8-76a8-462b-bf03-f89b9077616d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -122,10 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\Shader\fragment.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\shaders</Filter>
     </Text>
     <Text Include="data\Shader\vertex.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\shaders</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -3,24 +3,23 @@
 #include "../Render/Shader/Shader.h"
 #include "../Render/Texture/Texture.h"
 
-#include <sstream>
-#include <fstream>
-#include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_PNG
 #include "stb_image.h"//turn off warnings
 
 
-ResourcesManager::ResourcesManager(const std::string& dataDir) : dataDir(dataDir)
+ResourcesManager::ResourcesManager(const std::string_view dataDir) : dataDir(dataDir)
 {
 
 }
 
-std::shared_ptr<Render::Shader> ResourcesManager::loadShader(const std::string& shaderName, const std::string& vertexPath, const std::string& fragPath)
+std::shared_ptr<Render::Shader> ResourcesManager::loadShader(const std::string_view shaderName, const std::string_view vertexPath, const std::string_view fragPath)
 {
 	std::shared_ptr<Render::Shader> it = nullptr;
-	std::string srcVertex = getFileString(vertexPath), fragmentPath = getFileString(fragPath);
+	std::string srcVertex = getFileString(vertexPath),
+	            fragmentPath = getFileString(fragPath);
+
 	if (srcVertex.empty() || fragPath.empty()) {
 		std::cerr << "Failed load to Shader file\n";
 	}
@@ -32,10 +31,11 @@ std::shared_ptr<Render::Shader> ResourcesManager::loadShader(const std::string& 
 			it = nullptr;
 		}
 	}
+	
 	return it;
 }
 
-std::shared_ptr<Render::Shader> ResourcesManager::getShader(const std::string& shaderName)
+std::shared_ptr<Render::Shader> ResourcesManager::getShader(const std::string_view shaderName)
 {
 	ShaderMap::const_iterator it = shaders.find(shaderName);
 	std::shared_ptr<Render::Shader> shader = nullptr;
@@ -48,12 +48,13 @@ std::shared_ptr<Render::Shader> ResourcesManager::getShader(const std::string& s
 	return shader;	
 }
 
-std::shared_ptr<Render::Texture> ResourcesManager::loadTexture(const std::string& textureName,
-															   const std::string& texturePath)
+std::shared_ptr<Render::Texture> ResourcesManager::loadTexture(const std::string_view textureName,
+															   const std::string_view texturePath)
 {
 	int channels = 0, width = 0, height = 0;
 	stbi_set_flip_vertically_on_load(true);//opengl used dekart,load used coor screen
-	unsigned char* pixels = stbi_load((dataDir + texturePath).c_str(), &width, &height, &channels, 0);//unique
+	auto pathToFile = std::string(dataDir) + std::string(texturePath);
+	auto pixels = stbi_load(pathToFile.c_str(), &width, &height, &channels, 0);//ptr
 	std::shared_ptr<Render::Texture> result = nullptr;
 	if (!pixels) {
 		std::cerr << "Failed load to image file\n";
@@ -67,7 +68,7 @@ std::shared_ptr<Render::Texture> ResourcesManager::loadTexture(const std::string
 	return result;
 }
 
-std::shared_ptr<Render::Texture> ResourcesManager::getTexture(const std::string& textureName)
+std::shared_ptr<Render::Texture> ResourcesManager::getTexture(const std::string_view textureName)
 {
 	TextureMap::const_iterator it = textureMap.find(textureName);
 	std::shared_ptr<Render::Texture> texture = nullptr;
@@ -78,21 +79,28 @@ std::shared_ptr<Render::Texture> ResourcesManager::getTexture(const std::string&
 		std::cerr << "Not found shader in textureMap\n";
 	}
 	return texture;
-	//return std::shared_ptr<Render::Texture>();
 }
 
-std::string ResourcesManager::getFileString(const std::string& filePath) const
+
+
+#include <iostream>
+#include <filesystem>
+#include <fstream>
+
+std::string ResourcesManager::getFileString(const std::string_view filePath) const
 {
-	std::string result = "";
-	std::ifstream file;
-	file.open(dataDir + filePath, std::ios::in || std::ios::binary);
+	auto pathToFile = std::string(dataDir) + std::string(filePath);
+	std::string result;
+	std::ifstream file(pathToFile, std::ios::in | std::ios::binary);
 	if (!file.is_open()) {
-		std::cerr << "Failed to open shader file: " << dataDir + filePath << "\n";
+		std::cerr << "Failed to open shader file: " << pathToFile << "\n";
 	}
 	else {
-		std::stringstream buffer;
-		buffer << file.rdbuf();
-		result = buffer.str();
+		const auto size = std::filesystem::file_size(pathToFile);
+		result.resize(size, '\0');
+		file.read(result.data(), size);
+		file.close();
 	}
+
 	return result;
 }

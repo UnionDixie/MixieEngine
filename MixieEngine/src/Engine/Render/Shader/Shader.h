@@ -2,8 +2,7 @@
 
 #include <Glad/include/glad/glad.h>
 
-#include <string>
-//#include <string_view>
+#include <string_view>
 #include <iostream>
 
 #include <glm/glm.hpp>
@@ -15,10 +14,10 @@ namespace Render {
 	class Shader
 	{
 	public:
-		Shader(const std::string& vertexSrc, const std::string& fragSrc);
+		Shader(const std::string_view vertexSrc,const std::string_view fragSrc);
 		bool isCompiled() const;
 		void use() const;
-		void setUniform(const std::string& name, const GLint value) const;
+		void setUniform(const std::string_view name, const GLint value) const;
 
 		GLuint getID() const;
 
@@ -32,9 +31,9 @@ namespace Render {
 	private:
 		GLuint idShader = 0;
 	private:
-		bool createShader(const std::string& shaderSrc, const GLenum shaderType, GLuint& shaderID);
+		bool createShader(const std::string_view shaderSrc, const GLenum shaderType, GLuint& shaderID);
 		void catchError(GLuint shaderId);
-		void Init(const std::string& vertexSrc, const std::string& fragSrc);
+		void Init(const std::string_view vertexSrc, const std::string_view fragSrc);
 		bool successCompiled = false;
 	};
 }

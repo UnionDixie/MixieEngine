@@ -14,7 +14,7 @@ void Engine::mainInit()
 {
     /* Initialize the library */
     if (!glfwInit()) {
-        //throw exception
+        std::cerr << "Failed init GLFW\n";
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -24,7 +24,7 @@ void Engine::mainInit()
     if (!window)
     {
         glfwTerminate();
-        //throw exception
+        std::cerr << "Can't create window\n";
     }
     //set callback func
     glfwSetWindowSizeCallback(window, callbackResize);
@@ -34,7 +34,7 @@ void Engine::mainInit()
 
     if (!gladLoadGL())
     {
-        //throw exception
+        std::cerr << "Failed init GLAD\n";
     }
     glfwSwapInterval(1);//fpsLimit ~60
 }
@@ -48,14 +48,14 @@ void Engine::infoGL() const
     //log
     int nrAttributes;
     glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << "\n";
     std::cout << glGetString(GL_VERSION) << "\n";
     std::cout << glGetString(GL_VENDOR) << "\n";
     if (auto log = glGetString(GL_RENDER); log != nullptr) {
         std::cout << log << "\n";
     }
     else {
-        //throw exception
+        std::cerr << "Failed check GL_RENDER\n";
     }
 }
 
@@ -64,10 +64,7 @@ void Engine::infoGL() const
 void Engine::loadData()
 {
     if (auto get = resManager.loadShader("simpShader", "Shader/vertex.txt", "Shader/fragment.txt");
-        get != nullptr && get->isCompiled()) {
-        //shaderProg = std::move(*get.get());//hmm
-    }
-    else {
+             get == nullptr || get->isCompiled()) {
         std::cerr << "Can't create shader simpShader\n";
     }
     //
@@ -95,12 +92,10 @@ void Engine::loadData()
     vaoList.emplace_back(packets);
     //Sprite
     triangle1.setParam(vboList, vaoList, simpShader, texturePtr);
+
     triangle2.setParam(vboList, vaoList, simpShader, texturePtr);
-    //triangle3.setParam(vboList, vaoList, simpShader, texturePtr);
-    //triangle4.setParam(vboList, vaoList, simpShader, texturePtr);
-
-
     triangle2.setPos(glm::vec3(0.4f, 0.4f, 0.0f));
+
 }
 
 void Engine::run()
@@ -119,8 +114,8 @@ void Engine::run()
         glfwPollEvents();
     }
     //resManager.~ResourcesManager();
-    vboList.clear();
-    vaoList.clear();
+    //vboList.clear();
+    //vaoList.clear();
     glfwTerminate();
 }
 
@@ -145,6 +140,7 @@ void Engine::draw()
 
 void Engine::processInput(GLFWwindow* window)
 {
+    //rebuild this shit !!! >_<
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
@@ -189,8 +185,6 @@ void Engine::processInput(GLFWwindow* window)
     {
         triangle2.scale(glm::vec3(-0.1f, -0.1f, 1),false);
     }
-
-
 
 }
 

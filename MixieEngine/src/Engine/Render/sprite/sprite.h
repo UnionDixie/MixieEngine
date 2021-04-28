@@ -4,7 +4,7 @@
 #include <list>
 #include <memory>
 #include <GLM/glm.hpp>
-#include <string>
+//#include <string_view>
 
 //#include "../ebo/ebo.h"
 
@@ -23,24 +23,23 @@ namespace Render {
 		typedef std::shared_ptr<Render::Shader> shader_ptr;
 		typedef std::shared_ptr<Render::Texture> texture_ptr;
 	public:
-		Sprite();
+		Sprite() noexcept;
 
-		//VAO() = delete;
 		Sprite(const Sprite&) = delete;
 		Sprite& operator=(const Sprite&) = delete;
 
-		~Sprite();
+		~Sprite() = default;
 	public:
-		void setParam(std::list<Render::VBO> vboL,
-			std::list<Render::VAO> vaoL,
-			shader_ptr shader_Ptr, texture_ptr texture_Ptr);
+		void setParam(const std::list<Render::VBO>& vboL,
+			          const std::list<Render::VAO>& vaoL,
+			          shader_ptr shader_Ptr, texture_ptr texture_Ptr);
 		//void setMat4(const std::string& name, const glm::mat4& matrix);
 		//void setEBO(const unsigned int* indices,const int n);
 		void draw();
-		void setPos(glm::vec3 newPos);
-		void move(glm::vec3 moves);
-		void rotate(float angle, bool fl = true);
-		void scale(glm::vec3 scale, bool fl = true);
+		void setPos(const glm::vec3& newPos);
+		void move(const glm::vec3& moves);
+		void rotate(const float& angle, bool fl = true);
+		void scale(const glm::vec3& scale, bool fl = true);
 
 	private:
 		void transform();
@@ -51,7 +50,7 @@ namespace Render {
 		glm::vec3 scales;
 
 		glm::mat4 Matrix;
-		std::string NameMatrix;
+		//std::string_view nameMatrix;
 		std::list<Render::VBO> vboList;
 		std::list<Render::VAO> vaoList;
 		//Render::EBO ebo;

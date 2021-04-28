@@ -7,7 +7,7 @@
 
 namespace Render {
 
-	Sprite::Sprite()
+	Sprite::Sprite() noexcept
 	{
 		Matrix = glm::mat4(1.0f);
 		postion = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -15,12 +15,12 @@ namespace Render {
 		scales = glm::vec3(1.0f, 1.0f, 1.0f);
 	}
 
-	void Sprite::setParam(std::list<Render::VBO> vboL,
-						  std::list<Render::VAO> vaoL,
+	void Sprite::setParam(const std::list<Render::VBO>& vboL,
+						  const std::list<Render::VAO>& vaoL,
 						  shader_ptr shader_Ptr, texture_ptr texture_Ptr)
 	{
-		vboList = std::move(vboL);
-		vaoList = std::move(vaoL);
+		vboList = vboL;
+		vaoList = vaoL;
 		shaderPtr = shader_Ptr;
 		texturePtr = texture_Ptr;
 	}
@@ -29,7 +29,7 @@ namespace Render {
 	{
 		shaderPtr->use();
 		update();
-		unsigned int transformLoc = glGetUniformLocation(shaderPtr->getID(), "transform");
+		auto transformLoc = glGetUniformLocation(shaderPtr->getID(), "transform");
 		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(Matrix));
 	}
 
@@ -52,17 +52,17 @@ namespace Render {
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
 
-	void Sprite::setPos(glm::vec3 newPos)
+	void Sprite::setPos(const glm::vec3& newPos)
 	{
 		postion = newPos;
 	}
 
-	void Sprite::move(glm::vec3 moves)
+	void Sprite::move(const glm::vec3& moves)
 	{
 		postion += moves;
 	}
 
-	void Sprite::rotate(float angles,bool fl)
+	void Sprite::rotate(const float& angles,bool fl)
 	{
 		if (!fl) {
 			angle += angles;
@@ -72,7 +72,7 @@ namespace Render {
 		}
 	}
 
-	void Sprite::scale(glm::vec3 scale, bool fl)
+	void Sprite::scale(const glm::vec3& scale, bool fl)
 	{
 		if (!fl) {
 			scales += scale;
@@ -82,11 +82,11 @@ namespace Render {
 		}
 	}
 
-	Sprite::~Sprite()
-	{
-		//vboList.clear();
-		//vaoList.clear();
-		//glDeleteProgram(shaderPtr->idShader);
-		//texturePtr->~Texture();
-	}
+	//Sprite::~Sprite()
+	//{
+	//	//vboList.clear();
+	//	//vaoList.clear();
+	//	//glDeleteProgram(shaderPtr->idShader);
+	//	//texturePtr->~Texture();
+	//}
 }

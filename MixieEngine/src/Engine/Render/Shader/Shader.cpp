@@ -1,7 +1,7 @@
 #include "Shader.h"
 
 namespace Render {
-	Render::Shader::Shader(const std::string& vertexSrc, const std::string& fragSrc)
+	Render::Shader::Shader(const std::string_view vertexSrc, const std::string_view fragSrc)
 	{
 		if (!vertexSrc.empty() && !fragSrc.empty()) {
 			Init(vertexSrc, fragSrc);
@@ -21,9 +21,9 @@ namespace Render {
 		glUseProgram(idShader);
 	}
 
-	void Shader::setUniform(const std::string& name, const GLint value) const
+	void Shader::setUniform(const std::string_view name, const GLint value) const
 	{
-		glUniform1i(glGetUniformLocation(idShader, name.c_str()), value);
+		glUniform1i(glGetUniformLocation(idShader, name.data()), value);
 	}
 
 	GLuint Shader::getID() const
@@ -31,10 +31,10 @@ namespace Render {
 		return idShader;
 	}
 
-	bool Shader::createShader(const std::string& shaderSrc, const GLenum shaderType, GLuint& shaderID)
+	bool Shader::createShader(const std::string_view shaderSrc, const GLenum shaderType, GLuint& shaderID)
 	{
 		shaderID = glCreateShader(shaderType);
-		const char* source = shaderSrc.c_str();
+		auto source = shaderSrc.data();
 		glShaderSource(shaderID, 1, &source, nullptr);
 		glCompileShader(shaderID);
 		//check error
@@ -53,19 +53,16 @@ namespace Render {
 		std::cerr << "Error::Shader::Compile-time-error:\n" << infoLog << '\n';
 	}
 
-	void Shader::Init(const std::string& vertexSrc, const std::string& fragSrc)
+	void Shader::Init(const std::string_view vertexSrc, const std::string_view fragSrc)
 	{
 		GLuint vertxShader = 0;
 		if (!createShader(vertexSrc, GL_VERTEX_SHADER, vertxShader)) {
 			std::cerr << "VertexShader compile-time-error\n";
-			//return;
 		}
 
 		GLuint fragShader = 0;
 		if (!createShader(fragSrc, GL_FRAGMENT_SHADER, fragShader)) {
 			std::cerr << "FragmentShader compile-time-error\n";
-			//glDeleteShader(vertxShader);
-			//return;
 		}
 
 		idShader = glCreateProgram();
@@ -89,7 +86,7 @@ namespace Render {
 
 	Shader& Shader::operator=(Shader&& shader) noexcept
 	{
-		glDeleteProgram(idShader);
+		glDeleteProgram(idShader);//error????
 		//think maybe func?
 		idShader = shader.idShader;
 		successCompiled = shader.successCompiled;

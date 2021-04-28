@@ -5,17 +5,17 @@ namespace Utility {
     static_assert(sizeof(ll) == 8, "long must be 8 bytes");
     static_assert(sizeof(int) == 4, "int must be 4 bytes");
 
-    ll cnt = 0;
-    ll usedMem = 0;
+    static ll cnt = 0;
+    static ll usedMem = 0;
 }
-
 
 #include <cstdlib>
-void* operator new(size_t size) {
-    Utility::usedMem += size;
-    Utility::cnt++;
-    return malloc(size);
+inline void* operator new(size_t size) {
+        Utility::usedMem += size;
+        Utility::cnt++;
+        return malloc(size);
 }
+
 
 
 #include <iostream>
@@ -49,11 +49,14 @@ namespace Utility {
     private:
         std::ofstream cerrFile;
     };
+    inline void getInfo() {
+        std::cout << Utility::cnt << "-objects, " << Utility::usedMem << "-Bytes!" << "\n";
+    };
     class Watcher
     {
     public:
         Watcher() = default;
-        ~Watcher() { std::cout << Utility::cnt << "-objects, " << Utility::usedMem << "-Bytes!" << "\n"; };
+        ~Watcher() { getInfo(); };
     private:
 
     };
