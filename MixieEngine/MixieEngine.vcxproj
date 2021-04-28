@@ -170,7 +170,7 @@
     <ClInclude Include="src\Engine\Resources\stb_image.h" />
     <ClInclude Include="src\Engine\shapes\shapes.h" />
     <ClInclude Include="src\Engine\Utility\future.h" />
-    <ClInclude Include="src\Engine\Utility\log.h" />
+    <ClInclude Include="src\Engine\Utility\utility.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data\Shader\fragment.txt" />

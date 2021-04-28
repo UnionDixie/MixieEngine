@@ -29,7 +29,7 @@ namespace Utility {
     public:
         Timer() : beg(clock_t::now()) {};
         ~Timer() {
-            std::cout << std::chrono::duration_cast<second_t>(clock_t::now() - beg).count();
+            std::cout << "Time: " << std::chrono::duration_cast<second_t>(clock_t::now() - beg).count() << " sec\n";
         };
     private:
         using clock_t = std::chrono::high_resolution_clock;
@@ -49,5 +49,14 @@ namespace Utility {
     private:
         std::ofstream cerrFile;
     };
+    class Watcher
+    {
+    public:
+        Watcher() = default;
+        ~Watcher() { std::cout << Utility::cnt << "-objects, " << Utility::usedMem << "-Bytes!" << "\n"; };
+    private:
+
+    };
+
 }
 

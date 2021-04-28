@@ -1,15 +1,16 @@
-#include "Engine/Utility/log.h"
+#include "Engine/Utility/utility.h"
 #include "Engine/Engine.h"
 
 int main(int argc,char** argv) {
 
+    Utility::Watcher watcher;
     Utility::Timer timer;
     Utility::Logger logger;
 
     Engine engine;
     engine.run();
 
-    std::cout << Utility::cnt << " " << Utility::usedMem << " Bytes!" << "\n";
+    
 
     return 0;
 }

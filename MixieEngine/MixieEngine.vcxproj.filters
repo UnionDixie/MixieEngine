@@ -113,7 +113,7 @@
     <ClInclude Include="src\Engine\shapes\shapes.h">
       <Filter>Source Files\Engine\Render</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Utility\log.h">
+    <ClInclude Include="src\Engine\Utility\utility.h">
       <Filter>Source Files\Engine\Utility</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Utility\future.h">
