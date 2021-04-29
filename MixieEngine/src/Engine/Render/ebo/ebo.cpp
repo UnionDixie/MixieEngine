@@ -6,7 +6,7 @@ namespace Render {
 	{
 		glGenBuffers(1, &id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(4), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(*indices) * n, indices, GL_STATIC_DRAW);
 	}
 
 	GLuint EBO::getID() const

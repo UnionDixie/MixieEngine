@@ -19,6 +19,7 @@
 #include "../Engine/Render/vbo/vbo.h"
 #include "../Engine/Render/vao/vao.h"
 #include "../Engine/Render/sprite/sprite.h"
+//#include "../Engine/Render/sprite/square/square.h"
 
 class Engine
 {
@@ -33,10 +34,13 @@ private:
 	ResourcesManager resManager;
 	Render::Sprite triangle1, triangle2,
 		           triangle3, triangle4;
+	
 	std::list<Render::VBO> vboList;
 	std::list<Render::VAO> vaoList;
-
-	
+private:
+	Render::Sprite square;
+	std::list<Render::VBO> vboList2;
+	std::list<Render::VAO> vaoList2;
 private:
 	void processInput(GLFWwindow*);
 	static void callbackResize(GLFWwindow*, int, int);

@@ -18,13 +18,13 @@ std::shared_ptr<Render::Shader> ResourcesManager::loadShader(const std::string_v
 {
 	std::shared_ptr<Render::Shader> it = nullptr;
 	std::string srcVertex = getFileString(vertexPath),
-	            fragmentPath = getFileString(fragPath);
+	            srcFragment = getFileString(fragPath);
 
-	if (srcVertex.empty() || fragPath.empty()) {
+	if (srcVertex.empty() || srcFragment.empty()) {
 		std::cerr << "Failed load to Shader file\n";
 	}
 	else {
-		auto res = shaders.try_emplace(shaderName, std::make_shared<Render::Shader>(srcVertex, fragmentPath));
+		auto res = shaders.try_emplace(shaderName, std::make_shared<Render::Shader>(srcVertex, srcFragment));
 		it = res.first->second;
 		if (!it->isCompiled()) {
 			std::cerr << "Failed compile shader\n";
@@ -80,7 +80,6 @@ std::shared_ptr<Render::Texture> ResourcesManager::getTexture(const std::string_
 	}
 	return texture;
 }
-
 
 
 #include <iostream>

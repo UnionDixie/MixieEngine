@@ -176,6 +176,10 @@
     <Text Include="data\Shader\fragment.txt" />
     <Text Include="data\Shader\vertex.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data\Shader\square\0.vs" />
+    <None Include="data\Shader\square\1.fs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

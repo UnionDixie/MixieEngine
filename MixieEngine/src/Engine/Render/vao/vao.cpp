@@ -9,10 +9,17 @@ namespace Render {
 
         for (const auto [id, attrib, n] : list)
         {
-            glEnableVertexAttribArray(attrib);
-            glBindBuffer(GL_ARRAY_BUFFER, id);
-            glVertexAttribPointer(attrib, n, GL_FLOAT, false, 0, nullptr);
+            if (id != NULL) {
+                glEnableVertexAttribArray(attrib);
+                glBindBuffer(GL_ARRAY_BUFFER, id);
+                glVertexAttribPointer(attrib, n, GL_FLOAT, false, 0, nullptr);
+            }
         }
+        //safe
+        glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+        
     }
 
     GLuint VAO::getID() const

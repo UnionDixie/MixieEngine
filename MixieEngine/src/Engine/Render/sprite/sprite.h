@@ -32,7 +32,7 @@ namespace Render {
 	public:
 		void setParam(const std::list<Render::VBO>& vboL,
 			          const std::list<Render::VAO>& vaoL,
-			          shader_ptr shader_Ptr, texture_ptr texture_Ptr);
+			          shader_ptr shader_Ptr, texture_ptr texture_Ptr,int count);
 		//void setMat4(const std::string& name, const glm::mat4& matrix);
 		//void setEBO(const unsigned int* indices,const int n);
 		void draw();
@@ -41,6 +41,8 @@ namespace Render {
 		void rotate(const float& angle, bool fl = true);
 		void scale(const glm::vec3& scale, bool fl = true);
 
+	private:
+		int cnt;
 	private:
 		void transform();
 		void update();

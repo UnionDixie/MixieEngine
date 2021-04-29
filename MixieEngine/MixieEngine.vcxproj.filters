@@ -52,6 +52,9 @@
     <Filter Include="Resource Files\shaders">
       <UniqueIdentifier>{a2e03cc8-76a8-462b-bf03-f89b9077616d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders\square">
+      <UniqueIdentifier>{db36e6b0-86fb-4006-8346-a8e4f8683f1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -130,5 +133,13 @@
     <Text Include="data\Shader\vertex.txt">
       <Filter>Resource Files\shaders</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\Shader\square\0.vs">
+      <Filter>Resource Files\shaders\square</Filter>
+    </None>
+    <None Include="data\Shader\square\1.fs">
+      <Filter>Resource Files\shaders\square</Filter>
+    </None>
   </ItemGroup>
 </Project>

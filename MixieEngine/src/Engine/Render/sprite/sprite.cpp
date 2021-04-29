@@ -17,12 +17,13 @@ namespace Render {
 
 	void Sprite::setParam(const std::list<Render::VBO>& vboL,
 						  const std::list<Render::VAO>& vaoL,
-						  shader_ptr shader_Ptr, texture_ptr texture_Ptr)
+						  shader_ptr shader_Ptr, texture_ptr texture_Ptr,int count)
 	{
 		vboList = vboL;
 		vaoList = vaoL;
 		shaderPtr = shader_Ptr;
 		texturePtr = texture_Ptr;
+		cnt = count;
 	}
 
 	void Sprite::transform()
@@ -47,9 +48,10 @@ namespace Render {
 	{
 		transform();
 		shaderPtr->use();
-		texturePtr->bind();
+		if(texturePtr!=nullptr)
+			texturePtr->bind();
 		glBindVertexArray(vaoList.front().getID());
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, cnt);
 	}
 
 	void Sprite::setPos(const glm::vec3& newPos)

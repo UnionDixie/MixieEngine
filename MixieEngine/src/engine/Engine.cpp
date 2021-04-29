@@ -64,38 +64,72 @@ void Engine::infoGL() const
 void Engine::loadData()
 {
     if (auto get = resManager.loadShader("simpShader", "Shader/vertex.txt", "Shader/fragment.txt");
-             get == nullptr || get->isCompiled()) {
+             get == nullptr || !(get->isCompiled())) {
         std::cerr << "Can't create shader simpShader\n";
     }
     //
     auto simpShader = resManager.getShader("simpShader");
     auto texturePtr = resManager.loadTexture("fun", "image/fun.png");
+    {
+        //VBO   
+        vboList.emplace_back(Shapes::points, 9);
+        const auto pointsVBO = vboList.back().getID();
 
-    //VBO   
-    vboList.emplace_back(Shapes::points, 9);
-    const auto pointsVBO = vboList.back().getID();
+        vboList.emplace_back(Shapes::colors, 9);
+        const auto colorsVbo = vboList.back().getID();
 
-    vboList.emplace_back(Shapes::colors, 9);
-    const auto colorsVbo = vboList.back().getID();
+        vboList.emplace_back(Shapes::texCoords, 6);
+        const auto textureVBO = vboList.back().getID();
 
-    vboList.emplace_back(Shapes::texCoords, 6);
-    const auto textureVBO = vboList.back().getID();
+        //VAO
+        //packet id,attrib,points
+        Render::VAO::vboPacket packetPoints = { pointsVBO,0,3 },
+                               packetColors = { colorsVbo,1,3 },
+                               packetTexture = { textureVBO,2,2 };
+        std::initializer_list<Render::VAO::vboPacket> packets{ packetPoints,
+                                                               packetColors,
+                                                               packetTexture };
+        vaoList.emplace_back(packets);
+        //Sprite
+        triangle1.setParam(vboList, vaoList, simpShader, texturePtr,3);
 
-    //VAO
-    //packet id,attrib,points
-    Render::VAO::vboPacket packetPoints = { pointsVBO,0,3 },
-                           packetColors = { colorsVbo,1,3 },
-                           packetTexture = { textureVBO,2,2 };
-    std::initializer_list<Render::VAO::vboPacket> packets{ packetPoints,
-                                                           packetColors,
-                                                           packetTexture };
-    vaoList.emplace_back(packets);
-    //Sprite
-    triangle1.setParam(vboList, vaoList, simpShader, texturePtr);
+        triangle2.setParam(vboList, vaoList, simpShader, texturePtr,3);
+        triangle2.setPos(glm::vec3(0.4f, 0.4f, 0.0f));
+    }
 
-    triangle2.setParam(vboList, vaoList, simpShader, texturePtr);
-    triangle2.setPos(glm::vec3(0.4f, 0.4f, 0.0f));
+    {
+        //VBO   
+       /* if (auto get = resManager.loadShader("simpShader2", "Shader/square/0.vs", "Shader/square/1.fs");
+        	get == nullptr || !get->isCompiled()) {
+        	std::cerr << "Can't create shader simpShader\n";
+        }*/
+        auto shader = resManager.getShader("simpShader");
 
+
+        vboList2.emplace_back(Shapes::vertices2, sizeof(Shapes::vertices2));
+        const auto pointsVBO = vboList2.back().getID();
+
+        vboList.emplace_back(squares::colors, sizeof(squares::colors));
+        const auto colorsVbo = vboList.back().getID();
+
+        vboList.emplace_back(squares::texures, sizeof(squares::texures));
+        const auto textureVBO = vboList.back().getID();
+
+        //VAO
+        //packet id,attrib,points
+        Render::VAO::vboPacket packetPoints = { pointsVBO,0,3 },
+            packetColors = { colorsVbo,1,3 },
+            packetTexture = { textureVBO,2,2 };
+        std::initializer_list<Render::VAO::vboPacket> packets{ packetPoints,
+                                                               packetColors,
+                                                               packetTexture };
+        vaoList2.emplace_back(packets);
+        //Sprite
+        square.setParam(vboList2, vaoList2, shader, nullptr,6);
+        square.scale(glm::vec3(0.5f, 0.5f, 1));
+        square.move(glm::vec3(0.5f, 0.5f, 1));
+    }
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 void Engine::run()
@@ -126,16 +160,20 @@ void Engine::update()
     auto scales = std::sin((float)glfwGetTime());
     triangle1.scale(glm::vec3(scales, scales, 1));
 
-    triangle2.scale(glm::vec3(scales / 2, scales / 2, 1));
+    //triangle2.scale(glm::vec3(scales / 2, scales / 2, 1));
     //auto move = std::cos(glfwGetTime()) * -0.001f;
     //triangle2.move(glm::vec3(move, move, 0.f));
+
+    //square.rotate((1.0f / std::sin((float)glfwGetTime())));
+    
 }
 
 void Engine::draw() 
 {
     update();
     triangle1.draw();
-    triangle2.draw();
+    //triangle2.draw();
+    square.draw();
 }
 
 void Engine::processInput(GLFWwindow* window)
@@ -171,19 +209,19 @@ void Engine::processInput(GLFWwindow* window)
     }
     if (state5 == GLFW_PRESS)
     {
-        triangle2.rotate(0.1f);
+        triangle2.rotate(0.1f, false);
     }
     if (state6 == GLFW_PRESS)
     {
-        triangle2.rotate(-0.1f);
+        triangle2.rotate(-0.1f, false);
     }
     if (state7 == GLFW_PRESS)
     {
-        triangle2.scale(glm::vec3(0.1f, 0.1f, 1),false);
+        triangle2.scale(glm::vec3(0.1f, 0.1f, 1), false);
     }
     if (state8 == GLFW_PRESS)
     {
-        triangle2.scale(glm::vec3(-0.1f, -0.1f, 1),false);
+        triangle2.scale(glm::vec3(-0.1f, -0.1f, 1), false);
     }
 
 }
