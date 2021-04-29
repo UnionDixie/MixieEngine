@@ -1,2 +1,2 @@
 # MixieEngine
-My test engine on OpenGl
+My test engine on OpenGL
