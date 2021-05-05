@@ -127,18 +127,18 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data\Shader\fragment.txt">
+    <Text Include="Data\Shader\fragment.txt">
       <Filter>Resource Files\shaders</Filter>
     </Text>
-    <Text Include="data\Shader\vertex.txt">
+    <Text Include="Data\Shader\vertex.txt">
       <Filter>Resource Files\shaders</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\Shader\square\0.vs">
+    <None Include="Data\Shader\square\0.vs">
       <Filter>Resource Files\shaders\square</Filter>
     </None>
-    <None Include="data\Shader\square\1.fs">
+    <None Include="Data\Shader\square\1.fs">
       <Filter>Resource Files\shaders\square</Filter>
     </None>
   </ItemGroup>

@@ -21,9 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{aec76ad3-7c1c-473d-8743-3706dd59fe9a}</ProjectGuid>
-    <RootNamespace>MixieEngine</RootNamespace>
+    <ProjectGuid>{87bb35d2-6bbb-4646-b702-52116385489b}</ProjectGuid>
+    <RootNamespace>SimpEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SimpEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,13 +41,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -78,13 +79,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Libs\GLFW\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)Libs\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(SolutionDir)Libs\spdlog\include;$(SolutionDir)Libs\GLFW\include;$(IncludePath)</IncludePath>
+    <OutDir>..\Libs\</OutDir>
+    <LibraryPath>$(SolutionDir)Libs\GLFW\lib;$(SolutionDir)Libs\spdlog\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Libs\GLFW\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)Libs\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(SolutionDir)Libs\spdlog\include;$(SolutionDir)Libs\GLFW\include;$(IncludePath)</IncludePath>
+    <OutDir>..\Libs\</OutDir>
+    <LibraryPath>$(SolutionDir)Libs\GLFW\lib;$(SolutionDir)Libs\spdlog\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,13 +123,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib />
+    <Lib>
+      <AdditionalOptions>"opengl32.lib" "glfw3.lib" "spdlogd.lib" %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -136,7 +144,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,40 +154,17 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib />
+    <Lib>
+      <AdditionalOptions>"opengl32.lib" "glfw3.lib" "spdlog.lib" %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Libs\GLAD\src\glad.c" />
-    <ClCompile Include="src\engine\Engine.cpp" />
-    <ClCompile Include="src\Engine\Render\ebo\ebo.cpp" />
-    <ClCompile Include="src\Engine\Render\Shader\Shader.cpp" />
-    <ClCompile Include="src\Engine\Render\sprite\sprite.cpp" />
-    <ClCompile Include="src\Engine\Render\Texture\Texture.cpp" />
-    <ClCompile Include="src\Engine\Render\vao\vao.cpp" />
-    <ClCompile Include="src\Engine\Render\vbo\vbo.cpp" />
-    <ClCompile Include="src\Engine\Resources\ResourcesManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\core\core.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\engine\Engine.h" />
-    <ClInclude Include="src\Engine\Render\ebo\ebo.h" />
-    <ClInclude Include="src\Engine\Render\Shader\Shader.h" />
-    <ClInclude Include="src\Engine\Render\sprite\sprite.h" />
-    <ClInclude Include="src\Engine\Render\Texture\Texture.h" />
-    <ClInclude Include="src\Engine\Render\vao\vao.h" />
-    <ClInclude Include="src\Engine\Render\vbo\vbo.h" />
-    <ClInclude Include="src\Engine\Resources\ResourcesManager.h" />
-    <ClInclude Include="src\Engine\Resources\stb_image.h" />
-    <ClInclude Include="src\Engine\shapes\shapes.h" />
-    <ClInclude Include="src\Engine\Utility\future.h" />
-    <ClInclude Include="src\Engine\Utility\utility.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Data\Shader\fragment.txt" />
-    <Text Include="Data\Shader\vertex.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Data\Shader\square\0.vs" />
-    <None Include="Data\Shader\square\1.fs" />
+    <ClInclude Include="include\core\core.h" />
+    <ClInclude Include="include\core\utility\log.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

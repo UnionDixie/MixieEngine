@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\src">
+      <UniqueIdentifier>{12d35bff-fe3b-4c61-9fa9-cb78a4527b4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\include">
+      <UniqueIdentifier>{01e51521-7124-4d23-b8aa-b9b2f74dd60f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\src\core">
+      <UniqueIdentifier>{c349dd4c-bc38-4813-aa9e-cba6edcc02b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\src\core\utility">
+      <UniqueIdentifier>{6a594d44-3770-4027-9c5d-a565ee983bc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\include\core">
+      <UniqueIdentifier>{4128f3db-7b5b-4ae7-8b1d-7fb8bb34c313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\include\core\utility">
+      <UniqueIdentifier>{5875ca7b-bceb-4574-8092-0164cd66914a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\core.cpp">
+      <Filter>Исходные файлы\src\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\core\core.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\utility\log.h">
+      <Filter>Файлы заголовков\include\core\utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

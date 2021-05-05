@@ -7,9 +7,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MixieEngine", "MixieEngine.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cherno", "Engines\Cherno\Cherno.vcxproj", "{DC190917-4BE6-4629-83F3-6D473768E87B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SiCode", "Engines\SiCode\SiCode.vcxproj", "{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ravesli", "Engines\Ravesli\Ravesli.vcxproj", "{DCBA4552-7F47-4EE4-865B-30AC10A406F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleEngine", "SimpleEngine", "{B4B40B1E-CFFC-4673-8EE1-E2E7A2172B82}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpEngine", "Engines\SimpleEngine\SimpEngine\SimpEngine.vcxproj", "{87BB35D2-6BBB-4646-B702-52116385489B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpEditor", "Engines\SimpleEngine\SimpEditor\SimpEditor.vcxproj", "{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{87BB35D2-6BBB-4646-B702-52116385489B} = {87BB35D2-6BBB-4646-B702-52116385489B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +42,6 @@ Global
 		{DC190917-4BE6-4629-83F3-6D473768E87B}.Release|x64.Build.0 = Release|x64
 		{DC190917-4BE6-4629-83F3-6D473768E87B}.Release|x86.ActiveCfg = Release|Win32
 		{DC190917-4BE6-4629-83F3-6D473768E87B}.Release|x86.Build.0 = Release|Win32
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Debug|x64.ActiveCfg = Debug|x64
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Debug|x64.Build.0 = Debug|x64
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Debug|x86.ActiveCfg = Debug|Win32
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Debug|x86.Build.0 = Debug|Win32
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Release|x64.ActiveCfg = Release|x64
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Release|x64.Build.0 = Release|x64
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Release|x86.ActiveCfg = Release|Win32
-		{EA3E6CF6-B6FC-48AE-8E11-917F21D28010}.Release|x86.Build.0 = Release|Win32
 		{DCBA4552-7F47-4EE4-865B-30AC10A406F4}.Debug|x64.ActiveCfg = Debug|x64
 		{DCBA4552-7F47-4EE4-865B-30AC10A406F4}.Debug|x64.Build.0 = Debug|x64
 		{DCBA4552-7F47-4EE4-865B-30AC10A406F4}.Debug|x86.ActiveCfg = Debug|Win32
@@ -51,9 +50,29 @@ Global
 		{DCBA4552-7F47-4EE4-865B-30AC10A406F4}.Release|x64.Build.0 = Release|x64
 		{DCBA4552-7F47-4EE4-865B-30AC10A406F4}.Release|x86.ActiveCfg = Release|Win32
 		{DCBA4552-7F47-4EE4-865B-30AC10A406F4}.Release|x86.Build.0 = Release|Win32
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Debug|x64.ActiveCfg = Debug|x64
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Debug|x64.Build.0 = Debug|x64
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Debug|x86.ActiveCfg = Debug|Win32
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Debug|x86.Build.0 = Debug|Win32
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Release|x64.ActiveCfg = Release|x64
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Release|x64.Build.0 = Release|x64
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Release|x86.ActiveCfg = Release|Win32
+		{87BB35D2-6BBB-4646-B702-52116385489B}.Release|x86.Build.0 = Release|Win32
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Debug|x64.ActiveCfg = Debug|x64
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Debug|x64.Build.0 = Debug|x64
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Debug|x86.ActiveCfg = Debug|Win32
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Debug|x86.Build.0 = Debug|Win32
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Release|x64.ActiveCfg = Release|x64
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Release|x64.Build.0 = Release|x64
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Release|x86.ActiveCfg = Release|Win32
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{87BB35D2-6BBB-4646-B702-52116385489B} = {B4B40B1E-CFFC-4673-8EE1-E2E7A2172B82}
+		{B07E42B8-DB45-4E9F-97F4-C41780FF1CCB} = {B4B40B1E-CFFC-4673-8EE1-E2E7A2172B82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83D56125-20A7-4B15-8325-12BDF3BFAAF6}
