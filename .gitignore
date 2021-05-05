@@ -17,7 +17,5 @@
 *.ipdb
 *.exp
 /MixieEngine/x64/
-MixieEngine/Engines/SimpleEngine/SimpEngine/x64/Release/SimpEngine.lib.recipe
-MixieEngine/Engines/SimpleEngine/SimpEngine/x64/Debug/SimpEngine.vcxproj.FileListAbsolute.txt
-MixieEngine/Engines/SimpleEngine/SimpEngine/x64/Debug/SimpEngine.lib.recipe
-MixieEngine/Engines/SimpleEngine/SimpEditor/x64/Debug/SimpEditor.vcxproj.FileListAbsolute.txt
+/MixieEngine/Engines/SimpleEngine/SimpEngine/x64/
+MixieEngine/Engines/SimpleEngine/SimpEditor/x64/
