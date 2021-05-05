@@ -2,7 +2,6 @@
 #include "Engine/Utility/utility.h"
 
 int main(int argc,char** argv) {
-
     Utility::Watcher watcher;
     Utility::Timer timer;
     Utility::Logger logger;
