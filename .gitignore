@@ -19,3 +19,10 @@
 /MixieEngine/x64/
 /MixieEngine/Engines/SimpleEngine/SimpEngine/x64/
 MixieEngine/Engines/SimpleEngine/SimpEditor/x64/
+MixieEngine/Engines/Ravesli/Bin/Debug/Ravesli.exe
+MixieEngine/Engines/Cherno/x64/Debug/Cherno.vcxproj.FileListAbsolute.txt
+MixieEngine/Engines/Cherno/Bin/Debug/Cherno.exe
+MixieEngine/Engines/BeginEnd/Bin/Debug/BeginEnd.exe
+MixieEngine/Engines/SimpleEngine/Bin/Release/SimpEditor.exe
+MixieEngine/Engines/SimpleEngine/Bin/Debug/SimpEditor.exe
+MixieEngine/Engines/SimpleEngine/Libs/SimpEngine.lib

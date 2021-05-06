@@ -6,6 +6,9 @@
 
 #include <iostream>
 
+
+#include "shader/Shader.h"
+
 using ui = unsigned int;
 constexpr ui WIDTH = 800;
 constexpr ui HEIGHT = 600;
@@ -19,11 +22,12 @@ void processInput(GLFWwindow* window);
 int main(void)
 {
     spdlog::info("Start...");
+
+
     glfwInit();//
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 
     std::string_view title("OpenGL");
     GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, title.data(), nullptr, nullptr);
@@ -190,10 +194,12 @@ int main(void)
         "}\n\0";
     const char* fragmentShaderSource2 = "#version 330 core\n"
         "out vec4 FragColor;\n"
+        "uniform vec4 ourColor;"
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);\n"
+        "   FragColor = ourColor;\n"
         "}\n\0";
+    
     // Вершинный шейдер
     int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -265,9 +271,53 @@ int main(void)
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader2);
 
-
+    int nrAttributes;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+    //std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+    spdlog::info("Maximum nr of vertex attributes supported: {}", nrAttributes);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+
+
+
+    //---------------------------------------------------------------------
+    float verticesXXX[] = {
+        // координаты         // цвета
+         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // нижняя правая вершина
+        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // нижняя левая вершина
+         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // верхняя вершина 
+
+    };
+
+    unsigned int VBO7, VAO7;
+    glGenVertexArrays(1, &VAO7);
+    glGenBuffers(1, &VBO7);
+
+    // Сначала связываем объект вершинного массива, затем связываем и устанавливаем вершинный буфер(ы), и затем конфигурируем вершинный атрибут(ы)    
+    glBindVertexArray(VAO7);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO7);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesXXX), verticesXXX, GL_STATIC_DRAW);
+
+    // Координатные атрибуты
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Цветовые атрибуты
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    // Вы можете отменить привязку VАО после этого, чтобы другие вызовы VАО случайно не изменили этот VAO (но подобное довольно редко случается).
+    // Модификация других VAO требует вызов glBindVertexArray(), поэтому мы обычно не снимаем привязку VAO (или VBO), когда это не требуется напрямую   
+    glBindVertexArray(0);
+
+   
+    Shader smartShader("Data/shader.vs", "Data/shader.fs");
+
+    //---------------------------------------------------------------------
+
+
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -276,26 +326,39 @@ int main(void)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO);
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
+        //glUseProgram(shaderProgram);
+        //glBindVertexArray(VAO);
+        ////glDrawArrays(GL_TRIANGLES, 0, 3);
 
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO1);//rectangle
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
+        //glUseProgram(shaderProgram);
+        //glBindVertexArray(VAO1);//rectangle
+        ////glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO3);//rectangle
+        //glUseProgram(shaderProgram2);
+        //float timeValue = glfwGetTime();
+        //float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+        //float redValue = (cos(timeValue) / 2.0f) + 0.5f;
+        //int vertexColorLocation = glGetUniformLocation(shaderProgram2, "ourColor");
+        //glUniform4f(vertexColorLocation, redValue, greenValue, 0.0f, 1.0f);
+        //glBindVertexArray(VAO3);//rectangle
+        ////glDrawArrays(GL_TRIANGLES, 0, 3);        
+        ////glUseProgram(shaderProgram2);
+        //glBindVertexArray(VAO4);//rectangle
+        ////glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        //glUseProgram(shaderProgram);
+        //glBindVertexArray(VAO2);
+        ////glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,nullptr);
+        //glBindVertexArray(0);
+        
+
+        smartShader.use();
+        //smartShader.setFloat("x", 0.5f);
+        //smartShader.setFloat("y", 0.5f);
+        glBindVertexArray(VAO7);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        glUseProgram(shaderProgram2);
-        glBindVertexArray(VAO4);//rectangle
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO2);
-        //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,nullptr);
         glBindVertexArray(0);
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();
