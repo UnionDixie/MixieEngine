@@ -2,8 +2,6 @@
 
 #include <spdlog/spdlog.h>
 
-//#include <stdio.h>
-
 namespace Engine {
 
 #ifdef NDEBUG

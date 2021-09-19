@@ -49,5 +49,8 @@ private:
 	void update();
 	void mainInit();
 	void loadData();
+
+
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 };
 

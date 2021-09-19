@@ -79,13 +79,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)Libs\spdlog\include;$(SolutionDir)Libs\GLFW\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Libs\GLAD\include;$(ProjectDir)include;$(SolutionDir)Libs\spdlog\include;$(SolutionDir)Libs\GLFW\include;$(IncludePath)</IncludePath>
     <OutDir>..\Libs\</OutDir>
     <LibraryPath>$(SolutionDir)Libs\GLFW\lib;$(SolutionDir)Libs\spdlog\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)Libs\spdlog\include;$(SolutionDir)Libs\GLFW\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Libs\GLAD\include;$(ProjectDir)include;$(SolutionDir)Libs\spdlog\include;$(SolutionDir)Libs\GLFW\include;$(IncludePath)</IncludePath>
     <OutDir>..\Libs\</OutDir>
     <LibraryPath>$(SolutionDir)Libs\GLFW\lib;$(SolutionDir)Libs\spdlog\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -160,11 +160,15 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Libs\GLAD\src\glad.c" />
     <ClCompile Include="src\core\core.cpp" />
+    <ClCompile Include="src\core\win\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\core.h" />
+    <ClInclude Include="include\core\utility\Event.h" />
     <ClInclude Include="include\core\utility\log.h" />
+    <ClInclude Include="include\core\win\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

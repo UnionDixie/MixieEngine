@@ -36,13 +36,25 @@
     <ClCompile Include="src\core\core.cpp">
       <Filter>Исходные файлы\src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Libs\GLAD\src\glad.c">
+      <Filter>Исходные файлы\src\core\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\win\Window.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\core\core.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="include\core\utility\log.h">
       <Filter>Файлы заголовков\include\core\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\core.h">
+      <Filter>Файлы заголовков\include\core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\win\Window.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\utility\Event.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,6 +18,7 @@ void resizeCallback(GLFWwindow* win, int width, int height) {
 }
 
 void processInput(GLFWwindow* window);
+void mouseClicked(GLFWwindow* window, int button, int action, int mods);
 
 int main(void)
 {
@@ -315,7 +316,7 @@ int main(void)
     Shader smartShader("Data/shader.vs", "Data/shader.fs");
 
     //---------------------------------------------------------------------
-
+    glfwSetMouseButtonCallback(window, mouseClicked);
 
 
 
@@ -372,6 +373,16 @@ int main(void)
 
     return 0;
 }
+
+
+void mouseClicked(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        spdlog::info("Pos : {0},{1}", xpos, ypos);
+    }
+}
+
 
 void processInput(GLFWwindow* window)
 {

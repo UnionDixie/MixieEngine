@@ -37,6 +37,55 @@ void Engine::mainInit()
         std::cerr << "Failed init GLAD\n";
     }
     glfwSwapInterval(1);//fpsLimit ~60
+
+
+    glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int b, int a, int m) { 
+        if (b == GLFW_MOUSE_BUTTON_LEFT && a == GLFW_PRESS) {
+            double xpos, ypos;
+            glfwGetCursorPos(w, &xpos, &ypos);
+            std::cout << xpos << " " << ypos << "\n";
+        }
+
+        QVector3D picked::calculateMouseRay(QMouseEvent * event)
+        {
+
+            qDebug() << event->position().x() << " " << event->position().y();
+            QVector2D normalizedCoords = getNormalizedCoords(event->position().x(), event->position().y());
+            //QVector2D normalizedCoords = getNormalizedCoords(200, 200);
+            qDebug() << normalizedCoords.x() << " " << normalizedCoords.y();
+            QVector4D ray_clip = QVector4D(normalizedCoords.x(), normalizedCoords.y(), -1.0f, 1.0f);
+            qDebug() << ray_clip.x() << " " << ray_clip.y() << " " << ray_clip.z() << " " << ray_clip.w();
+            eyeCoords = toEyeCoords(ray_clip);
+            qDebug() << eyeCoords.x() << " " << eyeCoords.y() << " " << eyeCoords.z() << " " << eyeCoords.w();
+            QVector3D worldRay = toWorldCoords(eyeCoords);
+            qDebug() << worldRay.x() << " " << worldRay.y() << " " << worldRay.z();
+
+            return worldRay;
+        }
+
+        QVector2D picked::getNormalizedCoords(double mx, double my)
+        {
+            const int w = 400, h = 400;
+            float x = (2.0f * mx) / w - 1.0f;
+            float y = 1.0f - (2.0f * my) / h;
+            return QVector2D(x, y);
+        }
+
+        QVector4D picked::toEyeCoords(QVector4D clipCoord)
+        {
+            QVector4D invertedProjection = vMatrix[0].inverted() * clipCoord;
+            return QVector4D(invertedProjection.x(), invertedProjection.y(), -1.0f, 0.0f);
+        }
+
+        QVector3D picked::toWorldCoords(QVector4D eyeCoord)
+        {
+            QVector3D rayWorld = QVector3D(vMatrix[1].inverted() * eyeCoord);
+            rayWorld.normalize();
+            return rayWorld;
+        }
+        
+     });
+
 }
 
 void Engine::infoGL() const
@@ -51,12 +100,12 @@ void Engine::infoGL() const
     std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << "\n";
     std::cout << glGetString(GL_VERSION) << "\n";
     std::cout << glGetString(GL_VENDOR) << "\n";
-    if (auto log = glGetString(GL_RENDER); log != nullptr) {
-        std::cout << log << "\n";
-    }
-    else {
-        std::cerr << "Failed check GL_RENDER\n";
-    }
+    //if (auto log = glGetString(GL_RENDER); log != nullptr) {
+    //    std::cout << log << "\n";
+    //}
+    //else {
+    //    std::cerr << "Failed check GL_RENDER\n";
+    //}
 }
 
 #include "../Engine/shapes/shapes.h"
@@ -130,6 +179,15 @@ void Engine::loadData()
         square.move(glm::vec3(0.5f, 0.5f, 1));
     }
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+}
+
+void Engine::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        std::cout << xpos << " " << ypos;
+    }
 }
 
 void Engine::run()

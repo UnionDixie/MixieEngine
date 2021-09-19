@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string_view>
+#include <memory>
+#include <core/win/Window.h>
 
 namespace Engine {
 
@@ -21,7 +23,7 @@ namespace Engine {
 		virtual void update();
 
 	private:
-
+		std::unique_ptr<Window> win1;
 	};
 
 }
