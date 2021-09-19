@@ -12,7 +12,7 @@ namespace Engine {
 	class Window
 	{
 	public:
-		using EventCallBack = std::function<void(Event&)>;
+		using EventCallBack = std::function<void(BaseEvent&)>;
 	public:
 		Window(std::string_view title, int width, int height);
 		~Window();

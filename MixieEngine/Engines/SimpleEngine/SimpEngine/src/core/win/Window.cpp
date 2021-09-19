@@ -4,10 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <core/utility/log.h>
 
-
-
 Engine::Window::Window(std::string_view title, int width, int height) :
-				data(title,width,height)
+				       data(title,width,height)
 {
 	init();
 }
@@ -72,18 +70,24 @@ int Engine::Window::init()
     glfwSetWindowUserPointer(window, &data);
 
     glfwSetWindowSizeCallback(window, [](GLFWwindow* win, int w, int h) {
-
         auto& data = *static_cast<WinData*>(glfwGetWindowUserPointer(win));
-
         data.sizeWindow = { w,h };
-
-        Engine::Event ev;
-        ev.height = h; ev.width = w;
-
+        Engine::WindowResize ev(w, h);
         data.callbackEvent(ev);
-
-
     });
+
+    glfwSetCursorPosCallback(window,[](GLFWwindow* win, double x, double y) {
+        auto& data = *static_cast<WinData*>(glfwGetWindowUserPointer(win));
+        Engine::MouseMoveEvent ev(x, y);
+        data.callbackEvent(ev);
+    });
+
+    glfwSetWindowCloseCallback(window, [](GLFWwindow* win) {
+        auto& data = *static_cast<WinData*>(glfwGetWindowUserPointer(win));
+        Engine::EventWinClose ev;
+        data.callbackEvent(ev);
+    });
+
 
     return 0;
 }

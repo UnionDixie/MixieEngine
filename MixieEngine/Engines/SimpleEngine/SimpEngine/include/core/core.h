@@ -24,6 +24,10 @@ namespace Engine {
 
 	private:
 		std::unique_ptr<Window> win1;
+
+		Engine::EventDispatcher eventDispatcher;
+
+		bool closeWin = false;
 	};
 
 }
