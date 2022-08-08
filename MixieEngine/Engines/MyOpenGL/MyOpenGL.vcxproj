@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Model\geometry.h" />
+    <ClInclude Include="src\Model\model.h" />
     <ClInclude Include="src\TgaReader\tgacolor.h" />
     <ClInclude Include="src\TgaReader\tgaheader.h" />
     <ClInclude Include="src\TgaReader\tgaimage.h" />
@@ -146,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Model\model.cpp" />
     <ClCompile Include="src\TgaReader\tgaimage.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
