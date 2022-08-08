@@ -26,3 +26,7 @@ MixieEngine/Engines/BeginEnd/Bin/Debug/BeginEnd.exe
 MixieEngine/Engines/SimpleEngine/Bin/Release/SimpEditor.exe
 MixieEngine/Engines/SimpleEngine/Bin/Debug/SimpEditor.exe
 MixieEngine/Engines/SimpleEngine/Libs/SimpEngine.lib
+MixieEngine/Engines/Ravesli/x64/Debug/Ravesli.vcxproj.FileListAbsolute.txt
+MixieEngine/Engines/BeginEnd/x64/Debug/BeginEnd.vcxproj.FileListAbsolute.txt
+*.user
+*.filters
