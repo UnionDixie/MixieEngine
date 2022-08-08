@@ -1,4 +1,4 @@
-#include "tgareader.h"
+#include "tgaimage.h"
 
 #include <iostream>
 #include <fstream>
@@ -9,14 +9,14 @@
 
 using namespace Tga;
 
-TgaReader::TgaReader(int w, int h, int bpp) : data(nullptr), width(w), height(h), bytespp(bpp)
+TgaImage::TgaImage(int w, int h, int bpp) : data(nullptr), width(w), height(h), bytespp(bpp)
 {
 	unsigned long nbytes = width * height * bytespp;
 	data = new unsigned char[nbytes];
 	memset(data, 0, nbytes);
 }
 
-TgaReader::TgaReader(const TgaReader& img) 
+TgaImage::TgaImage(const TgaImage& img) 
 {
 	width = img.width;
 	height = img.height;
@@ -26,12 +26,12 @@ TgaReader::TgaReader(const TgaReader& img)
 	memcpy(data, img.data, nbytes);
 }
 
-TgaReader::~TgaReader() 
+TgaImage::~TgaImage() 
 {
 	delete[] data;
 }
 
-TgaReader& TgaReader::operator =(const TgaReader& img) 
+TgaImage& TgaImage::operator =(const TgaImage& img) 
 {
 	if (this != &img) {
 		delete[] data;
@@ -45,7 +45,7 @@ TgaReader& TgaReader::operator =(const TgaReader& img)
 	return *this;
 }
 
-bool TgaReader::read_tga_file(const char* filename) 
+bool TgaImage::read_tga_file(const char* filename) 
 {
 	delete[] data;
 	data = NULL;
@@ -104,7 +104,7 @@ bool TgaReader::read_tga_file(const char* filename)
 	return true;
 }
 
-bool TgaReader::load_rle_data(std::ifstream& in) 
+bool TgaImage::load_rle_data(std::ifstream& in) 
 {
 	unsigned long pixelcount = width * height;
 	unsigned long currentpixel = 0;
@@ -155,7 +155,7 @@ bool TgaReader::load_rle_data(std::ifstream& in)
 	return true;
 }
 
-bool TgaReader::write_tga_file(const char* filename, bool rle) {
+bool TgaImage::write_tga_file(const char* filename, bool rle) {
 	unsigned char developer_area_ref[4] = { 0, 0, 0, 0 };
 	unsigned char extension_area_ref[4] = { 0, 0, 0, 0 };
 	unsigned char footer[18] = { 'T','R','U','E','V','I','S','I','O','N','-','X','F','I','L','E','.','\0' };
@@ -217,7 +217,7 @@ bool TgaReader::write_tga_file(const char* filename, bool rle) {
 }
 
 // TODO: it is not necessary to break a raw chunk for two equal pixels (for the matter of the resulting size)
-bool TgaReader::unload_rle_data(std::ofstream& out) {
+bool TgaImage::unload_rle_data(std::ofstream& out) {
 	const unsigned char max_chunk_length = 128;
 	unsigned long npixels = width * height;
 	unsigned long curpix = 0;
@@ -259,14 +259,14 @@ bool TgaReader::unload_rle_data(std::ofstream& out) {
 	return true;
 }
 
-TGAColor TgaReader::get(int x, int y) {
+TGAColor TgaImage::get(int x, int y) {
 	if (!data || x < 0 || y < 0 || x >= width || y >= height) {
 		return TGAColor();
 	}
 	return TGAColor(data + (x + y * width) * bytespp, bytespp);
 }
 
-bool TgaReader::set(int x, int y, TGAColor c) {
+bool TgaImage::set(int x, int y, TGAColor c) {
 	if (!data || x < 0 || y < 0 || x >= width || y >= height) {
 		return false;
 	}
@@ -274,19 +274,19 @@ bool TgaReader::set(int x, int y, TGAColor c) {
 	return true;
 }
 
-int TgaReader::get_bytespp() {
+int TgaImage::get_bytespp() {
 	return bytespp;
 }
 
-int TgaReader::get_width() {
+int TgaImage::get_width() {
 	return width;
 }
 
-int TgaReader::get_height() {
+int TgaImage::get_height() {
 	return height;
 }
 
-bool TgaReader::flip_horizontally() {
+bool TgaImage::flip_horizontally() {
 	if (!data) return false;
 	int half = width >> 1;
 	for (int i = 0; i < half; i++) {
@@ -300,7 +300,7 @@ bool TgaReader::flip_horizontally() {
 	return true;
 }
 
-bool TgaReader::flip_vertically() {
+bool TgaImage::flip_vertically() {
 	if (!data) return false;
 	unsigned long bytes_per_line = width * bytespp;
 	unsigned char* line = new unsigned char[bytes_per_line];
@@ -316,15 +316,15 @@ bool TgaReader::flip_vertically() {
 	return true;
 }
 
-unsigned char* TgaReader::buffer() {
+unsigned char* TgaImage::buffer() {
 	return data;
 }
 
-void TgaReader::clear() {
+void TgaImage::clear() {
 	memset((void*)data, 0, width * height * bytespp);
 }
 
-bool TgaReader::scale(int w, int h) {
+bool TgaImage::scale(int w, int h) {
 	if (w <= 0 || h <= 0 || !data) return false;
 	unsigned char* tdata = new unsigned char[w * h * bytespp];
 	int nscanline = 0;

@@ -7,15 +7,15 @@
 
 namespace Tga {
 
-	class TgaReader {
+	class TgaImage {
 	public:
 		enum Format {
 			GRAYSCALE = 1, RGB = 3, RGBA = 4
 		};
 
-		TgaReader() = default;
-		TgaReader(int w, int h, int bpp);
-		TgaReader(const TgaReader& img);
+		TgaImage() = default;
+		TgaImage(int w, int h, int bpp);
+		TgaImage(const TgaImage& img);
 		bool read_tga_file(const char* filename);
 		bool write_tga_file(const char* filename, bool rle = true);
 		bool flip_horizontally();
@@ -23,8 +23,8 @@ namespace Tga {
 		bool scale(int w, int h);
 		TGAColor get(int x, int y);
 		bool set(int x, int y, TGAColor c);
-		~TgaReader();
-		TgaReader& operator =(const TgaReader& img);
+		~TgaImage();
+		TgaImage& operator =(const TgaImage& img);
 		int get_width();
 		int get_height();
 		int get_bytespp();
