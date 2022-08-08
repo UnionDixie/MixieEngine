@@ -30,3 +30,10 @@ MixieEngine/Engines/Ravesli/x64/Debug/Ravesli.vcxproj.FileListAbsolute.txt
 MixieEngine/Engines/BeginEnd/x64/Debug/BeginEnd.vcxproj.FileListAbsolute.txt
 *.user
 *.filters
+MixieEngine/Engines/Cherno/x64/Release/Cherno.vcxproj.FileListAbsolute.txt
+MixieEngine/Engines/Cherno/Bin/Release/Cherno.exe
+MixieEngine/Engines/BeginEnd/x64/Release/BeginEnd.vcxproj.FileListAbsolute.txt
+MixieEngine/Engines/BeginEnd/Bin/Release/BeginEnd.exe
+MixieEngine/Engines/MyOpenGL/output.tga
+MixieEngine/Engines/MyOpenGL/x64/Release/MyOpenGL.vcxproj.FileListAbsolute.txt
+MixieEngine/Engines/Ravesli/x64/Release/Ravesli.vcxproj.FileListAbsolute.txt
