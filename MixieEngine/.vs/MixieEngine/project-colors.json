@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "dcba4552-7f47-4ee4-865b-30ac10a406f4": {
+      "ProjectGuid": "dcba4552-7f47-4ee4-865b-30ac10a406f4",
+      "DisplayName": "Ravesli",
+      "ColorIndex": 0
+    },
+    "aec76ad3-7c1c-473d-8743-3706dd59fe9a": {
+      "ProjectGuid": "aec76ad3-7c1c-473d-8743-3706dd59fe9a",
+      "DisplayName": "MixieEngine",
+      "ColorIndex": 1
+    },
+    "dc190917-4be6-4629-83f3-6d473768e87b": {
+      "ProjectGuid": "dc190917-4be6-4629-83f3-6d473768e87b",
+      "DisplayName": "Cherno",
+      "ColorIndex": 2
+    },
+    "17bef293-7fad-4aa5-928f-72d60b0f1cb4": {
+      "ProjectGuid": "17bef293-7fad-4aa5-928f-72d60b0f1cb4",
+      "DisplayName": "MyOpenGL",
+      "ColorIndex": 3
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 4
+}
